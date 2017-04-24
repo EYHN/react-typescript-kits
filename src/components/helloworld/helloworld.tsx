@@ -1,4 +1,4 @@
-import * as React from "React";
+import * as React from "react";
 const style = require("./helloworld.scss");
 
 export class Helloworld extends React.Component<undefined, undefined>{

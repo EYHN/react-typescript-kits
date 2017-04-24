@@ -11,6 +11,7 @@ var HtmlWebpackConfig = {
     showErrors: true
 };
 
+
 module.exports = {
     entry: [
         'babel-polyfill',
@@ -32,31 +33,133 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
 
     module: {
-        loaders: [
-            { test: /\.tsx?$/, loaders: ["react-hot", "awesome-typescript-loader?useBabel=true"] },
-            { test: /\.(scss)$/, loader: 'style-loader!css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]&sourceMap!postcss-loader!sass-loader?sourceMap' },
-            { test: /\.(less)$/, loader: 'style-loader!css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]&sourceMap!postcss-loader!less-loader?sourceMap' },
-            { test: /\.(css)$/, loader: 'style-loader!css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]&sourceMap!postcss-loader?sourceMap' },
-            { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
-            { test: /\.(ttf|otf|woff|woff2|eot)$/, loader: 'file-loader' },
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: "react-hot-loader"
+                    },
+                    {
+                        loader: "awesome-typescript-loader",
+                        options: {
+                            useBabel: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(scss)$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(less)$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: "less-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(css)$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            sourceMap: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192
+                    }
+                }]
+            },
+            {
+                test: /\.(ttf|otf|woff|woff2|eot)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192
+                    }
+                }]
+            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['react', 'es2015', "stage-2"]
-                }
+                use: [{
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['react', 'es2015', "stage-2"]
+                    }
+                }],
             },
-            {test: /\.json$/,loader: 'json-loader'},
-            {test: /\.md$/,loader: 'raw-loader'}
-        ],
-
-        preLoaders: [
-            { test: /\.js$/, loader: "source-map-loader" }
+            {
+                test: /\.md$/, use: [{ loader: 'raw-loader' }]
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: [{ loader: 'source-map-loader' }]
+            }
         ]
     }
-};
+}
