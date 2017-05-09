@@ -3,6 +3,11 @@ var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const GLOBALS = {
+  'process.env.NODE_ENV': JSON.stringify('development'),
+  __DEV__: true
+};
+
 var HtmlWebpackConfig = {
     title: 'hexo',
     filename: 'index.html',
@@ -67,7 +72,8 @@ module.exports = {
                         }
                     },
                     {
-                        loader: 'postcss-loader'
+                        loader: 'postcss-loader',
+                        options: { sourceMap: true }
                     },
                     {
                         loader: "sass-loader",
@@ -92,7 +98,8 @@ module.exports = {
                         }
                     },
                     {
-                        loader: 'postcss-loader'
+                        loader: 'postcss-loader',
+                        options: { sourceMap: true }
                     },
                     {
                         loader: "less-loader",

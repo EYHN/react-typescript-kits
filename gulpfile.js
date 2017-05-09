@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var webpack = require('webpack');
-var webpackGulp = require('gulp-webpack');
 var webpackMiddleware = require("webpack-dev-middleware");
 
 gulp.task('build', ['webpack'], function () {
@@ -9,10 +8,10 @@ gulp.task('build', ['webpack'], function () {
 gulp.task('server', ['webpack-server'], function () {
 });
 
-gulp.task('webpack', function () {
-  return gulp.src('./src/main.tsx')
-    .pipe(webpackGulp(require('./webpack.config.js')))
-    .pipe(gulp.dest('./dist'))
+gulp.task('webpack', function (done) {
+  webpack(require('./webpack.config.prod.js'),(err) => {
+    done(err)
+  })
 }
 )
 

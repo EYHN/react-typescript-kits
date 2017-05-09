@@ -5,25 +5,22 @@ import { Helloworld } from './components/helloworld/helloworld';
 interface AppState {
 }
 
-export class App extends React.Component<undefined, AppState>{
-  constructor() {
+export class App extends React.Component<undefined, AppState> {
+  public constructor() {
     super();
     this.state = {
       content: undefined
-    }
+    };
   }
 
-  componentDidMount() {
-  }
-
-  render() {
+  public render() {
     return (
       <div>
-        <Helloworld/>
+        <Helloworld />
         {
           this.props.children
         }
       </div>
-    )
+    );
   }
 }
