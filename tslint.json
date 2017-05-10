@@ -15,6 +15,7 @@
     "interface-name": false,
     "no-empty-interface": false,
     "no-var-requires": false,
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "jsx-boolean-value": [true, "never"]
   }
 }

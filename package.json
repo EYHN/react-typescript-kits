@@ -46,6 +46,7 @@
     "sass-loader": "^6.0.3",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.17.0",
+    "styled-jsx": "^0.5.7",
     "tslint": "^5.2.0",
     "tslint-react": "^3.0.0",
     "typescript": "^2.1.5",
