@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -30,7 +31,6 @@ var HtmlWebpackConfig = {
 
 module.exports = {
     entry: [
-        'babel-polyfill',
         "./src/main.tsx"
     ],
     output: {

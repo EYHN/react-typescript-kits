@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -19,7 +20,6 @@ var HtmlWebpackConfig = {
 
 module.exports = {
     entry: [
-        'babel-polyfill',
         "webpack-hot-middleware/client",
         "./src/main.tsx"
     ],
