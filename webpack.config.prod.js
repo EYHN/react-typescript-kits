@@ -163,7 +163,7 @@ module.exports = {
             },
             {
                 test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: path.resolve(__dirname, "node_modules"),
                 use: [{
                     loader: 'babel-loader',
                     query: {
