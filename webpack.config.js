@@ -20,7 +20,6 @@ var HtmlWebpackConfig = {
 
 module.exports = {
     entry: [
-        "webpack-hot-middleware/client",
         "./src/main.tsx"
     ],
     output: {
@@ -168,5 +167,20 @@ module.exports = {
                 use: [{ loader: 'source-map-loader' }]
             }
         ]
-    }
+    },
+    devServer: {
+		port: process.env.PORT || 8888,
+		host: 'localhost',
+		publicPath: '/',
+		contentBase: './src',
+		historyApiFallback: true,
+		open: true,
+		proxy: {
+			// OPTIONAL: proxy configuration:
+			// '/optional-prefix/**': { // path pattern to rewrite
+			//   target: 'http://target-host.com',
+			//   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
+			// }
+		}
+	}
 }
