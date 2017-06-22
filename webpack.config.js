@@ -32,6 +32,7 @@ module.exports = {
     devtool: "source-map",
 
     plugins: [
+        new webpack.DefinePlugin(GLOBALS),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin(HtmlWebpackConfig)
     ],

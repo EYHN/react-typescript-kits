@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var OfflinePlugin = require('offline-plugin');
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
@@ -45,7 +46,8 @@ module.exports = {
         new webpack.DefinePlugin(GLOBALS),
         new HtmlWebpackPlugin(HtmlWebpackConfig),
         new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin(),
+        new OfflinePlugin()
     ],
 
     resolve: {
