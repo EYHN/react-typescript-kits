@@ -41,6 +41,5 @@ export default function configureStore(initialState = {}, history: History) {
       });
     });
   }
-
   return store;
 }

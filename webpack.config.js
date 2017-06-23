@@ -32,7 +32,6 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin(GLOBALS),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin(HtmlWebpackConfig)
     ],
 
@@ -44,7 +43,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(ts|tsx)?$/,
                 use: [
                     {
                         loader: "react-hot-loader"
@@ -152,12 +151,16 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: path.resolve(__dirname, "node_modules"),
-                use: [{
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ["env", "react"]
-                    }
-                }],
+                use: [
+                    {
+                        loader: "react-hot-loader"
+                    },
+                    {
+                        loader: 'babel-loader',
+                        query: {
+                            presets: ["env", "react"]
+                        }
+                    }],
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]

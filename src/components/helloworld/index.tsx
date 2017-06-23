@@ -3,7 +3,7 @@ const style = require('./helloworld.scss');
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-export class Helloworld extends React.Component<undefined, undefined> {
+export default class Helloworld extends React.Component<undefined, undefined> {
   public render() {
     return (
       <div>

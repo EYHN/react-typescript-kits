@@ -8,7 +8,7 @@ const zhTranslationMessages = require('./translations/zh.json') as Messages;
 
 export const appLocales = [
   'en',
-  'zh-CN',
+  'zh',
 ];
 
 addLocaleData(enLocaleData);

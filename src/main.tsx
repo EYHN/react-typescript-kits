@@ -7,8 +7,8 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 import LanguageProvider from './containers/LanguageProvider';
 import { Messages } from 'react-intl';
 import configureStore from './store';
-import { Helloworld } from './components/helloworld/helloworld';
 import 'sanitize.css/sanitize.css';
+import HomePage from './containers/Pages/HomePage';
 import { translationMessages } from './i18n';
 
 // 注入 sw
@@ -30,7 +30,7 @@ const render = (messages: LanguageMessages) => {
             <Route
               exact
               path='/'
-              component={Helloworld as any}
+              component={HomePage}
             />
           </div>
         </ConnectedRouter>
@@ -40,16 +40,12 @@ const render = (messages: LanguageMessages) => {
   );
 };
 
-// Hot reloadable translation json files
 if (module.hot) {
-  // modules.hot.accept does not accept dynamic dependencies,
-  // have to be constants at compile-time
   module.hot.accept('./i18n', () => {
-    render(translationMessages);
+    render(require('./i18n').translationMessages);
   });
 }
 
-// Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
   (new Promise((resolve) => {
     resolve(System.import('intl'));
