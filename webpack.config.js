@@ -5,8 +5,8 @@ var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('development'),
-  __DEV__: true
+    'process.env.NODE_ENV': JSON.stringify('development'),
+    __DEV__: true
 };
 
 var HtmlWebpackConfig = {
@@ -155,7 +155,7 @@ module.exports = {
                 use: [{
                     loader: 'babel-loader',
                     query: {
-                        presets: ["env","react"]
+                        presets: ["env", "react"]
                     }
                 }],
             },
@@ -170,18 +170,18 @@ module.exports = {
         ]
     },
     devServer: {
-		port: process.env.PORT || 8888,
-		host: 'localhost',
-		publicPath: '/',
-		contentBase: './src',
-		historyApiFallback: true,
-		open: true,
-		proxy: {
-			// OPTIONAL: proxy configuration:
-			// '/optional-prefix/**': { // path pattern to rewrite
-			//   target: 'http://target-host.com',
-			//   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
-			// }
-		}
-	}
+        port: process.env.PORT || 8888,
+        host: 'localhost',
+        publicPath: '/',
+        contentBase: './src',
+        historyApiFallback: true,
+        open: true,
+        proxy: {
+            // OPTIONAL: proxy configuration:
+            // '/optional-prefix/**': { // path pattern to rewrite
+            //   target: 'http://target-host.com',
+            //   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
+            // }
+        }
+    }
 }
