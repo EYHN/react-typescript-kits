@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route } from 'react-router';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 import LanguageProvider from './containers/LanguageProvider';
 import { Messages } from 'react-intl';
 import configureStore from './store';
 import 'sanitize.css/sanitize.css';
-import HomePage from './containers/Pages/HomePage';
 import { translationMessages } from './i18n';
+import { Routers } from './router';
 
 // 注入 sw
 if (process.env.NODE_ENV === 'production') {
@@ -26,13 +25,7 @@ const render = (messages: LanguageMessages) => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <div>
-            <Route
-              exact
-              path='/'
-              component={HomePage}
-            />
-          </div>
+          <Routers />
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>

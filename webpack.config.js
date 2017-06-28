@@ -156,10 +156,7 @@ module.exports = {
                         loader: "react-hot-loader"
                     },
                     {
-                        loader: 'babel-loader',
-                        query: {
-                            presets: ["env", "react"]
-                        }
+                        loader: 'babel-loader'
                     }],
             },
             {
