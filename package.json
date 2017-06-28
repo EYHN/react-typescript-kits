@@ -13,6 +13,7 @@
   "author": "EYHN",
   "license": "GPL-2.0",
   "devDependencies": {
+    "@types/react-redux": "^4.4.44",
     "@types/immutable": "^3.8.7",
     "@types/node": "^7.0.5",
     "@types/react": "^15.0.5",
@@ -57,7 +58,6 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "@types/react-redux": "^4.4.44",
     "http-server": "^0.10.0",
     "immutable": "^3.8.1",
     "intl": "^1.2.5",
