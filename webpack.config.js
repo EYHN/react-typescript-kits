@@ -5,8 +5,8 @@ var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('development'),
-  __DEV__: true
+    'process.env.NODE_ENV': JSON.stringify('development'),
+    __DEV__: true
 };
 
 var HtmlWebpackConfig = {
@@ -32,7 +32,6 @@ module.exports = {
 
     plugins: [
         new webpack.DefinePlugin(GLOBALS),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin(HtmlWebpackConfig)
     ],
 
@@ -44,7 +43,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(ts|tsx)?$/,
                 use: [
                     {
                         loader: "react-hot-loader"
@@ -152,12 +151,14 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: path.resolve(__dirname, "node_modules"),
-                use: [{
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ["env","react"]
+                use: [
+                    {
+                        loader: "react-hot-loader"
+                    },
+                    {
+                        loader: 'babel-loader'
                     }
-                }],
+                ],
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]
@@ -170,18 +171,18 @@ module.exports = {
         ]
     },
     devServer: {
-		port: process.env.PORT || 8888,
-		host: 'localhost',
-		publicPath: '/',
-		contentBase: './src',
-		historyApiFallback: true,
-		open: true,
-		proxy: {
-			// OPTIONAL: proxy configuration:
-			// '/optional-prefix/**': { // path pattern to rewrite
-			//   target: 'http://target-host.com',
-			//   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
-			// }
-		}
-	}
+        port: process.env.PORT || 8888,
+        host: 'localhost',
+        publicPath: '/',
+        contentBase: './src',
+        historyApiFallback: true,
+        open: true,
+        proxy: {
+            // OPTIONAL: proxy configuration:
+            // '/optional-prefix/**': { // path pattern to rewrite
+            //   target: 'http://target-host.com',
+            //   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
+            // }
+        }
+    }
 }

@@ -8,4 +8,32 @@ Not coolest but easiest.
 
 ## simple page
 
-webpack + css-moudle + jsx-styled + react + typescript + sass|less
+https://eyhn.github.io/react-kits/dist/
+
+## stack
+
+webpack
+
+css-moudle
+
+jsx-styled
+
+react
+
+typescript
+
+sass|less
+
+redux
+
+tslint
+
+immutable
+
+redux-immutable
+
+redux-saga
+
+reselect
+
+react-intl
