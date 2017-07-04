@@ -6,6 +6,7 @@ cache:
     - node_modules
 install:
   - npm install
+  - npm install coveralls
 script:
   - npm run build  # build
   - npm run test  # run mocha unit tests with coverage
