@@ -1,12 +1,11 @@
 var webpack = require('webpack');
 var path = require('path');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production'),
-  __DEV__: false
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    __DEV__: false
 };
 
 
@@ -27,7 +26,7 @@ var HtmlWebpackConfig = {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true
-      },
+    },
 };
 
 module.exports = {
@@ -46,7 +45,6 @@ module.exports = {
         new webpack.DefinePlugin(GLOBALS),
         new HtmlWebpackPlugin(HtmlWebpackConfig),
         new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-        new BundleAnalyzerPlugin(),
         new OfflinePlugin()
     ],
 
@@ -58,7 +56,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(ts|tsx)?$/,
                 use: [
                     {
                         loader: "react-hot-loader"
@@ -166,12 +164,14 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: path.resolve(__dirname, "node_modules"),
-                use: [{
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['react', 'es2015', "stage-2"]
+                use: [
+                    {
+                        loader: "react-hot-loader"
+                    },
+                    {
+                        loader: 'babel-loader'
                     }
-                }],
+                ],
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]

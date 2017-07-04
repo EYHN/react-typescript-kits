@@ -157,7 +157,8 @@ module.exports = {
                     },
                     {
                         loader: 'babel-loader'
-                    }],
+                    }
+                ],
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]
