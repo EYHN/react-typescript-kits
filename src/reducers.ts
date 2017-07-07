@@ -8,8 +8,22 @@ const routeInitialState = fromJS({
   locationBeforeTransitions: null,
 });
 
-export default function createReducer() {
+function routeReducer(state = routeInitialState, action: any) {
+  switch (action.type) {
+    /* istanbul ignore next */
+    case LOCATION_CHANGE:
+      return state.merge({
+        locationBeforeTransitions: action.payload,
+      });
+    default:
+      return state;
+  }
+}
+
+export default function createReducer(asyncReducers?: {[key: string]: Function}) {
   return combineReducers({
-    language: languageProviderReducer
+    route: routeReducer,
+    language: languageProviderReducer,
+    ...asyncReducers
   });
 }

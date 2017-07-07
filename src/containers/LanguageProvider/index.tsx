@@ -18,7 +18,7 @@ const stateProps = returntypeof(mapStateToProps);
 
 type Props = typeof stateProps & ILanguageProviderProps;
 
-class LanguageProvider extends React.PureComponent<Props, undefined> {
+export class LanguageProvider extends React.PureComponent<Props, undefined> {
   public render() {
     return (
       <IntlProvider

@@ -9,7 +9,7 @@ import { changeLocale } from '../../LanguageProvider/actions';
 import { makeSelectLocale } from '../../LanguageProvider/selectors';
 import { appLocales } from '../../../i18n';
 
-interface IHomePageProps extends RouteComponentProps<{}> {
+interface IHomePageProps extends RouteComponentProps<{}, {}> {
 }
 
 const mapStateToProps = createSelector(
