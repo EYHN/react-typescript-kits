@@ -1,32 +1,51 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import LanguageProvider from './containers/LanguageProvider';
 import { Messages } from 'react-intl';
 import configureStore from './store';
 import 'sanitize.css/sanitize.css';
 import { translationMessages } from './i18n';
-import { Routers } from './router';
+import * as FontFaceObserver from 'fontfaceobserver';
+import { applyRouterMiddleware, browserHistory, Router } from 'react-router';
+import { makeSelectLocationState } from './containers/App/selectors';
+import App from './containers/App';
+import createRoutes from './router';
+const useScroll = require('react-router-scroll').useScroll;
 
-// 注入 sw
-if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install();
-}
+const openSansObserver = new FontFaceObserver('Noto Sans', {});
 
-const history = createHistory();
+openSansObserver.load().then(() => {
+  document.body.classList.add('fontLoaded');
+}, () => {
+  document.body.classList.remove('fontLoaded');
+});
 
 const initialState = {};
-const store = configureStore(initialState, history);
+const store = configureStore(initialState, browserHistory);
+
+const history = syncHistoryWithStore(browserHistory, store, {
+  selectLocationState: makeSelectLocationState(),
+});
+
+// Set up the router, wrapping all Routes in the App component
+const rootRoute = {
+  component: App,
+  childRoutes: createRoutes(store),
+};
 
 const render = (messages: LanguageMessages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
-          <Routers />
-        </ConnectedRouter>
+        <Router
+          history={history}
+          routes={rootRoute}
+          render={
+            applyRouterMiddleware(useScroll())
+          }
+        />
       </LanguageProvider>
     </Provider>
     , document.getElementById('app')
@@ -53,4 +72,9 @@ if (!window.Intl) {
     });
 } else {
   render(translationMessages);
+}
+
+// 注入 sw
+if (process.env.NODE_ENV === 'production') {
+  require('offline-plugin/runtime').install();
 }

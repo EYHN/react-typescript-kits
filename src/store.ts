@@ -30,12 +30,13 @@ export default function configureStore(initialState = {}, history: History) {
   );
 
   store.runSaga = sagaMiddleware.run;
+  store.asyncReducers = {};
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       System.import('./reducers').then((reducerModule) => {
         const createReducers = reducerModule.default;
-        const nextReducers = createReducers();
+        const nextReducers = createReducers(store.asyncReducers);
 
         store.replaceReducer(nextReducers);
       });
