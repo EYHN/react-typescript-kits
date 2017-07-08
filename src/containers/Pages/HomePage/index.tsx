@@ -41,7 +41,7 @@ class HomePage extends React.PureComponent<Props, undefined> {
         >
           {
             appLocales.map((locale) => {
-              return <option value={locale}>{locale}</option>;
+              return <option key={locale} value={locale}>{locale}</option>;
             })
           }
         </select>

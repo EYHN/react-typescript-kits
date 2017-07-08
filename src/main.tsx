@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import LanguageProvider from './containers/LanguageProvider';
-import { Messages } from 'react-intl';
 import configureStore from './store';
 import 'sanitize.css/sanitize.css';
 import { translationMessages } from './i18n';
