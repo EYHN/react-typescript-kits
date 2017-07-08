@@ -1,16 +1,23 @@
 
-# react-kits
-react kits
+# react-typescript-kits
 
 ![](http://img.badgesize.io/https://raw.githubusercontent.com/EYHN/react-kits/master/dist/bundle.js?compression=gzip)
 
-Not coolest but easiest.
+这可能是最厉害的 react + typescript 手脚架。
 
-## simple page
+灵感来自于 [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate)。
 
-https://eyhn.github.io/react-kits/dist/
+## 特性 | feature
 
-## stack
+* 翻译人员友好的国际化文件。
+
+* 根据路由的代码分割。
+
+* Typescript 优秀的开发体验。
+
+* 彻底的组件化方案。
+
+## 技术栈 | stack
 
 webpack
 
