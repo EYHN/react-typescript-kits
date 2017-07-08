@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import { Action } from 'redux';
 
 import languageProviderReducer from './containers/LanguageProvider/reducer';
 
@@ -8,7 +9,7 @@ const routeInitialState = fromJS({
   locationBeforeTransitions: null,
 });
 
-function routeReducer(state = routeInitialState, action: any) {
+function routeReducer(state = routeInitialState, action: Action & {payload: any}) {
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:

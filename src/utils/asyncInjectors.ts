@@ -5,7 +5,6 @@ import isObject = require('lodash/isObject');
 import isString = require('lodash/isString');
 import * as invariant from 'invariant';
 import * as warning from 'warning';
-
 import createReducer from '../reducers';
 
 /**
@@ -29,7 +28,7 @@ export function checkStore(store: any) {
 /**
  * Inject an asynchronously loaded reducer
  */
-export function injectAsyncReducer(store: any, isValid: boolean) {
+export function injectAsyncReducer(store: any, isValid: boolean = false) {
   return function injectReducer(name: string, asyncReducer: Function) {
     if (!isValid) checkStore(store);
 
@@ -48,7 +47,7 @@ export function injectAsyncReducer(store: any, isValid: boolean) {
 /**
  * Inject an asynchronously loaded saga
  */
-export function injectAsyncSagas(store: any, isValid: boolean) {
+export function injectAsyncSagas(store: any, isValid: boolean = false) {
   return function injectSagas(sagas: Function[]) {
     if (!isValid) checkStore(store);
 
