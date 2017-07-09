@@ -4,6 +4,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { Action } from 'redux';
 
 import languageProviderReducer from './containers/LanguageProvider/reducer';
+import themeProviderReducer from './containers/ThemeProvider/reducer';
 
 const routeInitialState = fromJS({
   locationBeforeTransitions: null,
@@ -11,7 +12,6 @@ const routeInitialState = fromJS({
 
 function routeReducer(state = routeInitialState, action: Action & {payload: any}) {
   switch (action.type) {
-    /* istanbul ignore next */
     case LOCATION_CHANGE:
       return state.merge({
         locationBeforeTransitions: action.payload,
@@ -25,6 +25,7 @@ export default function createReducer(asyncReducers?: {[key: string]: Function})
   return combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
+    theme: themeProviderReducer,
     ...asyncReducers
   });
 }

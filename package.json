@@ -14,6 +14,7 @@
   "author": "EYHN",
   "license": "GPL-2.0",
   "devDependencies": {
+    "@types/aphrodite": "^0.5.6",
     "@types/enzyme": "^2.8.1",
     "@types/fontfaceobserver": "0.0.5",
     "@types/history": "^3.2.1",

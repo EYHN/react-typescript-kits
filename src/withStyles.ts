@@ -1,4 +1,5 @@
 import DefaultTheme from './themes/defaultTheme';
+import LightTheme from './themes/lightTheme';
 
 const ThemedStyleSheet = require('react-with-styles/lib/ThemedStyleSheet').default;
 const aphroditeInterface = require('react-with-styles-interface-aphrodite').default;
@@ -18,6 +19,7 @@ type IThemeProps = typeof DefaultTheme;
 
 ThemedStyleSheet.registerDefaultTheme(DefaultTheme);
 ThemedStyleSheet.registerInterface(aphroditeInterface);
+ThemedStyleSheet.registerTheme('light', LightTheme);
 
 const $withStyles: typeof withStyles = (s, option) => (
   withStyles(s, {

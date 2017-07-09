@@ -11,6 +11,7 @@ import { applyRouterMiddleware, browserHistory, Router } from 'react-router';
 import { makeSelectLocationState } from './containers/App/selectors';
 import App from './containers/App';
 import createRoutes from './router';
+import ThemeProvider from './containers/ThemeProvider/index';
 const useScroll = require('react-router-scroll').useScroll;
 
 const openSansObserver = new FontFaceObserver('Noto Sans', {});
@@ -38,13 +39,15 @@ const render = (messages: LanguageMessages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <Router
-          history={history}
-          routes={rootRoute}
-          render={
-            applyRouterMiddleware(useScroll())
-          }
-        />
+        <ThemeProvider>
+          <Router
+            history={history}
+            routes={rootRoute}
+            render={
+              applyRouterMiddleware(useScroll())
+            }
+          />
+        </ThemeProvider>
       </LanguageProvider>
     </Provider>
     , document.getElementById('app')

@@ -7,6 +7,6 @@ export interface IAction {
   locale: string;
 }
 
-export function changeLocale(languageLocale: string) {
+export function changeLocale(languageLocale: string): IAction {
   return { type: CHANGE_LOCALE as typeof CHANGE_LOCALE, locale: languageLocale };
 }

@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import ConnectedLanguageProvider, { LanguageProvider } from '../index';
 import configureStore from '../../../store';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { createMemoryHistory } from 'react-router';
 
 import { translationMessages } from '../../../i18n';
 
@@ -32,7 +32,7 @@ describe('<ConnectedLanguageProvider />', () => {
   let store: any;
 
   beforeAll(() => {
-    store = configureStore({}, browserHistory);
+    store = configureStore({}, createMemoryHistory());
   });
 
   it('should render the default language messages', () => {
