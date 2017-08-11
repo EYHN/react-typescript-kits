@@ -8,17 +8,22 @@ import Helloworld from '../../../components/helloworld/index';
 import { changeLocale } from '../../LanguageProvider/actions';
 import { makeSelectLocale } from '../../LanguageProvider/selectors';
 import { appLocales } from '../../../i18n';
+import { changeTheme } from '../../ThemeProvider/actions';
+import { makeSelectThemeName } from '../../ThemeProvider/selectors';
+import { appThemes } from '../../../withStyles';
 
 interface IHomePageProps extends RouteComponentProps<{}, {}> {
 }
 
 const mapStateToProps = createSelector(
   makeSelectLocale(),
-  (locale) => ({ locale })
+  makeSelectThemeName(),
+  (locale, theme) => ({ locale, theme })
 );
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
-  changeLocale: (locale: string) => { dispatch(changeLocale(locale)); }
+  changeLocale: (locale: string) => { dispatch(changeLocale(locale)); },
+  changeTheme: (theme: string) => {dispatch(changeTheme(theme)); }
 });
 
 const stateProps = returntypeof(mapStateToProps);
@@ -26,7 +31,7 @@ const dispatchProps = returntypeof(mapDispatchToProps);
 
 type Props = typeof stateProps & IHomePageProps & typeof dispatchProps;
 
-class HomePage extends React.PureComponent<Props, undefined> {
+export class HomePage extends React.PureComponent<Props, undefined> {
 
   public render() {
     return (
@@ -42,6 +47,19 @@ class HomePage extends React.PureComponent<Props, undefined> {
           {
             appLocales.map((locale) => {
               return <option key={locale} value={locale}>{locale}</option>;
+            })
+          }
+        </select>
+        <select
+          name='Theme'
+          value={this.props.theme}
+          onChange={(e) => {
+            this.props.changeTheme(e.currentTarget.value);
+          }}
+        >
+          {
+            appThemes.map((theme) => {
+              return <option key={theme} value={theme}>{theme}</option>;
             })
           }
         </select>

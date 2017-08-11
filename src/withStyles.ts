@@ -1,5 +1,6 @@
 import DefaultTheme from './themes/defaultTheme';
 import LightTheme from './themes/lightTheme';
+import DarkTheme from './themes/darkTheme';
 
 const ThemedStyleSheet = require('react-with-styles/lib/ThemedStyleSheet').default;
 const aphroditeInterface = require('react-with-styles-interface-aphrodite').default;
@@ -20,12 +21,18 @@ type IThemeProps = typeof DefaultTheme;
 ThemedStyleSheet.registerDefaultTheme(DefaultTheme);
 ThemedStyleSheet.registerInterface(aphroditeInterface);
 ThemedStyleSheet.registerTheme('light', LightTheme);
+ThemedStyleSheet.registerTheme('dark', DarkTheme);
 
 const $withStyles: typeof withStyles = (s, option) => (
   withStyles(s, {
-    pureComponent: true,
+    pureComponent: false,
     ...option
   })
 );
+
+export const appThemes = [
+  'light',
+  'dark'
+];
 
 export { css, $withStyles as withStyles, ThemeProvider, ThemedStyleSheet };

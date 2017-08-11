@@ -1,5 +1,5 @@
 import {
-  changeLocale
+  changeTheme
 } from '../actions';
 
 import {
@@ -13,7 +13,7 @@ describe('ThemeProvider actions', () => {
         type: CHANGE_THEMENAME,
         themeName: 'newThemeName'
       };
-      expect(changeLocale('newThemeName')).toEqual(expected);
+      expect(changeTheme('newThemeName')).toEqual(expected);
     });
   });
 });

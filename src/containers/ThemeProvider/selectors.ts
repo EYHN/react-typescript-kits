@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import * as Reselect from 'reselect';
 
 const selectTheme = (state: any) => state.get('theme');
 

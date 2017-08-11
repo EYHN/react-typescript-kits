@@ -6,13 +6,11 @@ import { IWithStyleProps } from '../../Interfaces/react-with-style';
 
 @withStyles(({ color }) => ({
   title: {
-    'color': color.primary,
+    'color': color.text,
     'fontSize': '100px',
     'testAlign': 'center',
     'transition': 'color 300ms',
-    ':hover': {
-      color: color.secondary
-    }
+    'background-color': color.background
   }
 }))
 export default class Helloworld extends React.Component<IWithStyleProps, undefined> {

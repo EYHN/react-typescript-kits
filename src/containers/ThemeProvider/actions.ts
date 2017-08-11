@@ -7,6 +7,6 @@ export interface IAction {
   themeName: string;
 }
 
-export function changeLocale(themeName: string): IAction {
+export function changeTheme(themeName: string): IAction {
   return { type: CHANGE_THEMENAME as typeof CHANGE_THEMENAME, themeName };
 }

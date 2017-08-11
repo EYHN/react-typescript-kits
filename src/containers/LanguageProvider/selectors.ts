@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import * as Reselect from 'reselect';
 
 /**
  * Direct selector to the languageToggle state domain
