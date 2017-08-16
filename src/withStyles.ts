@@ -30,9 +30,9 @@ const $withStyles: typeof withStyles = (s, option) => (
   })
 );
 
-export const appThemes = [
-  'light',
-  'dark'
-];
+export const appThemes = {
+  light: LightTheme,
+  dark: DarkTheme
+};
 
 export { css, $withStyles as withStyles, ThemeProvider, ThemedStyleSheet };

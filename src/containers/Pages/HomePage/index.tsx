@@ -21,7 +21,7 @@ const mapStateToProps = createSelector(
   (locale, theme) => ({ locale, theme })
 );
 
-const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
+export const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   changeLocale: (locale: string) => { dispatch(changeLocale(locale)); },
   changeTheme: (theme: string) => {dispatch(changeTheme(theme)); }
 });
@@ -58,7 +58,7 @@ export class HomePage extends React.PureComponent<Props, undefined> {
           }}
         >
           {
-            appThemes.map((theme) => {
+            Object.keys(appThemes).map((theme) => {
               return <option key={theme} value={theme}>{theme}</option>;
             })
           }

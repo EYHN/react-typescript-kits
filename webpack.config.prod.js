@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const GLOBALS = {
     'process.env.NODE_ENV': JSON.stringify('production'),
@@ -30,9 +31,10 @@ var HtmlWebpackConfig = {
 };
 
 module.exports = {
-    entry: [
-        "./src/main.tsx"
-    ],
+    entry: {
+        vendor: ["react", "react-dom", "immutable", "react-intl"],
+        app: "./src/main.tsx"
+    },
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
@@ -45,7 +47,11 @@ module.exports = {
         new webpack.DefinePlugin(GLOBALS),
         new HtmlWebpackPlugin(HtmlWebpackConfig),
         new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-        new OfflinePlugin()
+        new OfflinePlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            filename: "vendor.js"
+        })
     ],
 
     resolve: {
@@ -80,7 +86,7 @@ module.exports = {
                         options: {
                             modules: true,
                             localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: true
+                            sourceMap: false
                         }
                     },
                     {
@@ -106,7 +112,7 @@ module.exports = {
                         options: {
                             modules: true,
                             localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: true
+                            sourceMap: false
                         }
                     },
                     {
@@ -132,7 +138,7 @@ module.exports = {
                         options: {
                             modules: true,
                             localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: true
+                            sourceMap: false
                         }
                     },
                     {
@@ -175,11 +181,6 @@ module.exports = {
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]
-            },
-            {
-                test: /\.js$/,
-                enforce: "pre",
-                use: [{ loader: 'source-map-loader' }]
             }
         ]
     }

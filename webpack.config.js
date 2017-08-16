@@ -162,11 +162,6 @@ module.exports = {
             },
             {
                 test: /\.md$/, use: [{ loader: 'raw-loader' }]
-            },
-            {
-                test: /\.js$/,
-                enforce: "pre",
-                use: [{ loader: 'source-map-loader' }]
             }
         ]
     },
