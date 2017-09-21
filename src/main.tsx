@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import LanguageProvider from './containers/LanguageProvider';
 import configureStore from './store';
+// tslint:disable-next-line:no-submodule-imports
 import 'sanitize.css/sanitize.css';
 import { translationMessages } from './i18n';
 import * as FontFaceObserver from 'fontfaceobserver';
