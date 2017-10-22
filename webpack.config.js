@@ -20,23 +20,26 @@ var HtmlWebpackConfig = {
 
 module.exports = {
     entry: [
+        'webpack-dev-server/client?http://localhost:8888',
+        'webpack/hot/only-dev-server',
         "./src/main.tsx"
     ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
     },
-
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    
+    devtool: "cheap-module-eval-source-map",
 
     plugins: [
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin(GLOBALS),
         new HtmlWebpackPlugin(HtmlWebpackConfig)
     ],
 
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
 
@@ -45,9 +48,6 @@ module.exports = {
             {
                 test: /\.(ts|tsx)?$/,
                 use: [
-                    {
-                        loader: "react-hot-loader"
-                    },
                     {
                         loader: "awesome-typescript-loader",
                         options: {
@@ -76,32 +76,6 @@ module.exports = {
                     },
                     {
                         loader: "sass-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(less)$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: "less-loader",
                         options: {
                             sourceMap: true
                         }
@@ -153,9 +127,6 @@ module.exports = {
                 exclude: path.resolve(__dirname, "node_modules"),
                 use: [
                     {
-                        loader: "react-hot-loader"
-                    },
-                    {
                         loader: 'babel-loader'
                     }
                 ],
@@ -169,9 +140,10 @@ module.exports = {
         port: process.env.PORT || 8888,
         host: 'localhost',
         publicPath: '/',
-        contentBase: './src',
+        contentBase: path.resolve(__dirname, "src"),
         historyApiFallback: true,
         open: true,
+        hot: true,
         proxy: {
             // OPTIONAL: proxy configuration:
             // '/optional-prefix/**': { // path pattern to rewrite

@@ -27,7 +27,7 @@ export default function createRoutes(store: Istore): PlainRouteWithName[] {
       name: 'home',
       getComponent: (nextState, cb) => {
         const importModules = Promise.all([
-          System.import('./containers/Pages/HomePage')
+          require('./containers/Pages/HomePage')
         ]);
 
         const renderRoute = loadModule(cb);

@@ -40,7 +40,6 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
-    // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
     plugins: [
@@ -55,7 +54,6 @@ module.exports = {
     ],
 
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
 
@@ -64,9 +62,6 @@ module.exports = {
             {
                 test: /\.(ts|tsx)?$/,
                 use: [
-                    {
-                        loader: "react-hot-loader"
-                    },
                     {
                         loader: "awesome-typescript-loader",
                         options: {
@@ -95,32 +90,6 @@ module.exports = {
                     },
                     {
                         loader: "sass-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(less)$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: false
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: "less-loader",
                         options: {
                             sourceMap: true
                         }
@@ -171,9 +140,6 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: path.resolve(__dirname, "node_modules"),
                 use: [
-                    {
-                        loader: "react-hot-loader"
-                    },
                     {
                         loader: 'babel-loader'
                     }

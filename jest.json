@@ -12,5 +12,6 @@
   ],
   "collectCoverage": true,
   "collectCoverageFrom" : ["src/**/*.{js,jsx,ts,tsx}", "!**/node_modules/**", "!src/**/*.{d.ts}"],
-  "coverageDirectory": "coverage"
+  "coverageDirectory": "coverage",
+  "setupFiles": ["./src/testsetup.ts"]
 }

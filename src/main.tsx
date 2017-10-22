@@ -29,20 +29,19 @@ const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: makeSelectLocationState(),
 });
 
-// Set up the router, wrapping all Routes in the App component
-const rootRoute = {
-  component: App,
-  childRoutes: createRoutes(store),
-};
+const MOUNT_NODE = document.getElementById('app');
 
-const render = (messages: LanguageMessages) => {
+const render = (messages: LanguageMessages, createRoutesFun: any) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ThemeProvider>
           <Router
             history={history}
-            routes={rootRoute}
+            routes={{
+              component: App,
+              childRoutes: createRoutesFun(store),
+            }}
             render={
               applyRouterMiddleware(useScroll())
             }
@@ -50,15 +49,9 @@ const render = (messages: LanguageMessages) => {
         </ThemeProvider>
       </LanguageProvider>
     </Provider>
-    , document.getElementById('app')
+    , MOUNT_NODE
   );
 };
-
-if (module.hot) {
-  module.hot.accept('./i18n', () => {
-    render(require('./i18n').translationMessages);
-  });
-}
 
 if (!window.Intl) {
   (new Promise((resolve) => {
@@ -68,15 +61,22 @@ if (!window.Intl) {
       System.import('intl/locale-data/jsonp/en.js'),
       System.import('intl/locale-data/jsonp/de.js'),
     ]))
-    .then(() => render(translationMessages))
+    .then(() => render(translationMessages, createRoutes))
     .catch((err) => {
       throw err;
     });
 } else {
-  render(translationMessages);
+  render(translationMessages, createRoutes);
 }
 
 // 注入 sw
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install();
+}
+
+if (module.hot) {
+  module.hot.accept(['./i18n', './router'], () => {
+    ReactDOM.unmountComponentAtNode(MOUNT_NODE);
+    render(require('./i18n').translationMessages, require('./router').default);
+  });
 }

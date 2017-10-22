@@ -20,6 +20,7 @@
     "jsx-no-lambda": false,
     "member-access": false,
     "ban-types": [true, ["Object", "Use {} instead."], ["String"]],
-    "no-submodule-imports": false
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false
   }
 }
