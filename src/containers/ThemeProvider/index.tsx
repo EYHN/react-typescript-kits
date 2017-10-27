@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { ThemeProvider as WithStyleThemeProvider } from '../../withStyles';
 import { createSelector } from 'reselect';
 import { makeSelectThemeName } from './selectors';

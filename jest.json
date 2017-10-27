@@ -7,11 +7,18 @@
     "ts",
     "tsx",
     "js",
-    "json",
     "jsx"
   ],
+  "browser": true,
   "collectCoverage": true,
   "collectCoverageFrom" : ["src/**/*.{js,jsx,ts,tsx}", "!**/node_modules/**", "!src/**/*.{d.ts}"],
   "coverageDirectory": "coverage",
-  "setupFiles": ["./src/testsetup.ts"]
+  "setupFiles": ["./src/test/raf.ts", "./src/test/enzymeConfigure.ts"],
+  "moduleDirectories": ["node_modules", "./src"],
+  "globals": {
+    "ts-jest": {
+      "tsConfigFile": "tsconfig.json",
+      "useBabelrc": true
+    }
+  }
 }

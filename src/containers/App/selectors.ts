@@ -3,9 +3,11 @@
  */
 
 import { createSelector } from 'reselect';
-import { Istate } from '../../Interfaces/state';
+import { IState } from 'Interfaces/state';
 
-const selectGlobal = (state: Istate) => state.get('global');
+const selectGlobal = (state: IState) => state.get('global');
+
+const selectRoute = (state: IState) => state.get('route');
 
 const makeSelectCurrentUser = () => createSelector(
   selectGlobal,
@@ -27,21 +29,10 @@ const makeSelectRepos = () => createSelector(
   (globalState) => globalState.getIn(['userData', 'repositories'])
 );
 
-const makeSelectLocationState = () => {
-  let prevRoutingState: Istate;
-  let prevRoutingStateJS: Istate;
-
-  return (state: Istate) => {
-    const routingState = state.get('route'); // or state.route
-
-    if (!routingState.equals(prevRoutingState)) {
-      prevRoutingState = routingState;
-      prevRoutingStateJS = routingState.toJS();
-    }
-
-    return prevRoutingStateJS;
-  };
-};
+const makeSelectLocation = () => createSelector(
+  selectRoute,
+  (routeState) => routeState.get('location').toJS()
+);
 
 export {
   selectGlobal,
@@ -49,5 +40,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectRepos,
-  makeSelectLocationState,
+  makeSelectLocation,
 };

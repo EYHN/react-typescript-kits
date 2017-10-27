@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { History } from 'history';
+import { IStore } from './Interfaces/store';
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,19 +28,15 @@ export default function configureStore(initialState = {}, history: History) {
     createReducer(),
     fromJS(initialState),
     composeEnhancers(...enhancers)
-  );
+  ) as IStore;
 
   store.runSaga = sagaMiddleware.run;
-  store.asyncReducers = {};
+  store.injectedReducers = {};
+  store.injectedSagas = {};
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      System.import('./reducers').then((reducerModule) => {
-        const createReducers = reducerModule.default;
-        const nextReducers = createReducers(store.asyncReducers);
-
-        store.replaceReducer(nextReducers);
-      });
+      store.replaceReducer(createReducer(store.injectedReducers));
     });
   }
   return store;

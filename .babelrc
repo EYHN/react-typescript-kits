@@ -1,23 +1,25 @@
-  {
-    "presets": [
-      ["es2015", {"modules": false}],
-      "stage-2",
-      "react",
-      ["env", {
+{
+  "presets": [
+    [
+      "env",
+      {
         "targets": {
           "browsers": [
             "last 2 versions"
           ]
-        },
-        "useBuiltIns": true
-      }]
-    ],
-    "plugins": [
-      [
-        "transform-runtime",
-        {
-          "polyfill": false
         }
-      ]
+      }
     ]
-  }
+  ],
+  "plugins": [
+    "lodash",
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
+      }
+    ]
+  ]
+}

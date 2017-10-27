@@ -29,7 +29,7 @@ module.exports = {
         path: __dirname + "/dist"
     },
     
-    devtool: "cheap-module-eval-source-map",
+    devtool: "eval-source-map",
 
     plugins: [
         new webpack.NamedModulesPlugin(),
@@ -40,7 +40,8 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
+        modules: [path.resolve(__dirname, "src"), "node_modules"]
     },
 
     module: {

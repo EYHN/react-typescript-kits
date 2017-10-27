@@ -1,8 +1,8 @@
 import { DEFAULT_LOCALE } from './containers/App/constants';
 
 import { addLocaleData } from 'react-intl';
-import enLocaleData = require('react-intl/locale-data/en');
-import zhLocaleData = require('react-intl/locale-data/zh');
+const enLocaleData = require('react-intl/locale-data/en');
+const zhLocaleData = require('react-intl/locale-data/zh');
 const enTranslationMessages = require('./translations/en.json') as Messages;
 const zhTranslationMessages = require('./translations/zh.json') as Messages;
 

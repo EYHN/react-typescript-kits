@@ -1,29 +1,38 @@
 import { returntypeof } from 'react-redux-typescript';
 import { createSelector } from 'reselect';
-import * as React from 'react';
-import { Dispatch } from 'redux';
+import React from 'react';
+import { Dispatch, compose } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
-import Helloworld from '../../../components/helloworld/index';
-import { changeLocale } from '../../LanguageProvider/actions';
-import { makeSelectLocale } from '../../LanguageProvider/selectors';
-import { appLocales } from '../../../i18n';
-import { changeTheme } from '../../ThemeProvider/actions';
-import { makeSelectThemeName } from '../../ThemeProvider/selectors';
-import { appThemes } from '../../../withStyles';
+import Helloworld from 'components/helloworld/index';
+import { changeLocale } from 'containers/LanguageProvider/actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { appLocales } from 'i18n';
+import { changeTheme } from 'containers/ThemeProvider/actions';
+import { makeSelectThemeName } from 'containers/ThemeProvider/selectors';
+import { appThemes } from 'withStyles';
+import { loadHitokoto } from 'containers/HomePage/actions';
+import reducer from './reducer';
+import saga from './saga';
 
-interface IHomePageProps extends RouteComponentProps<{}, {}> {
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { makeSelectHitokoto } from 'containers/HomePage/selectors';
+
+interface IHomePageProps {
 }
 
 const mapStateToProps = createSelector(
   makeSelectLocale(),
   makeSelectThemeName(),
-  (locale, theme) => ({ locale, theme })
+  makeSelectHitokoto(),
+  (locale, theme, hitokoto) => ({ locale, theme, hitokoto })
 );
 
 export const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   changeLocale: (locale: string) => { dispatch(changeLocale(locale)); },
-  changeTheme: (theme: string) => {dispatch(changeTheme(theme)); }
+  changeTheme: (theme: string) => {dispatch(changeTheme(theme)); },
+  onGetHitokoto: () => (dispatch(loadHitokoto()))
 });
 
 const stateProps = returntypeof(mapStateToProps);
@@ -63,10 +72,20 @@ export class HomePage extends React.PureComponent<Props, undefined> {
             })
           }
         </select>
+        <p>{this.props.hitokoto}</p>
       </div>
     );
   }
 }
 
 // tslint:disable-next-line:max-line-length
-export default connect<typeof stateProps, typeof dispatchProps, IHomePageProps>(mapStateToProps, mapDispatchToProps)(HomePage);
+const withConnect = connect<typeof stateProps, typeof dispatchProps, IHomePageProps>(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({ key: 'home', reducer });
+const withSaga = injectSaga({ key: 'home', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(HomePage);

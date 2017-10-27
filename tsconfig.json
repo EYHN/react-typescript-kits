@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
         "outDir": "./dist/",
+        "baseUrl": "./src",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es2016",
+        "module": "es6",
+        "target": "es2015",
         "jsx": "react",
         "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
         "typeRoots": [
             "./node_modules/@types"
         ]

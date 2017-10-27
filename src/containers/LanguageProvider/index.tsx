@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 import { createSelector } from 'reselect';
 import { returntypeof } from 'react-redux-typescript';
-import { IntlProvider, Messages } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { makeSelectLocale } from './selectors';
 

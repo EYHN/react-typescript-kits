@@ -1,5 +1,5 @@
-import { appThemes } from '../../withStyles';
-import { translationMessages } from '../../i18n';
+import { appThemes } from 'withStyles';
+import { translationMessages } from 'i18n';
 
 export const DEFAULT_LOCALE: keyof typeof translationMessages = 'en';
 

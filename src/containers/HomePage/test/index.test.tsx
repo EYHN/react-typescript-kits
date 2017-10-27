@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 
 import { HomePage, mapDispatchToProps } from '../';
-import Helloworld from '../../../../components/helloworld/index';
-import { changeLocale } from '../../../LanguageProvider/actions';
-import { changeTheme } from '../../../ThemeProvider/actions';
+import Helloworld from '../../../components/helloworld/index';
+import { changeLocale } from '../../LanguageProvider/actions';
+import { changeTheme } from '../../ThemeProvider/actions';
 
 describe('<HomePage />', () => {
 

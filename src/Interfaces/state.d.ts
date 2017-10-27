@@ -1,1 +1,1 @@
-export type Istate = any;
+export type IState = any;

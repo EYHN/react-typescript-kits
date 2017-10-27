@@ -1,17 +1,23 @@
-import * as React from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 
 import App from '../index';
 
-describe('<App />', () => {
+import Header from '../Header';
+import { Route } from 'react-router';
 
-  it('should render its children', () => {
-    const children = (<h1>Test</h1>);
+describe('<App />', () => {
+  it('should render the header', () => {
     const renderedComponent = shallow(
-      <App>
-        {children}
-      </App>
+      <App />
     );
-    expect(renderedComponent.contains(children)).toBe(true);
+    expect(renderedComponent.find(Header).length).toBe(1);
+  });
+
+  it('should render some routes', () => {
+    const renderedComponent = shallow(
+      <App />
+    );
+    expect(renderedComponent.find(Route).length).not.toBe(0);
   });
 });

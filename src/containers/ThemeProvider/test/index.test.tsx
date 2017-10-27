@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { mount, shallow } from 'enzyme';
 import ConnectedThemeProvider, { ThemeProvider } from '../index';
 import { Provider } from 'react-redux';
-import configureStore from '../../../store';
-import { createMemoryHistory } from 'react-router';
-import { withStyles, appThemes } from '../../../withStyles';
-import { IWithStyleProps } from '../../../Interfaces/react-with-style';
-import { DEFAULT_THEMENAME } from '../../App/constants';
+import configureStore from 'store';
+import createHistory from 'history/createBrowserHistory';
+import { withStyles, appThemes } from 'withStyles';
+import { IWithStyleProps } from 'Interfaces/react-with-style';
+import { DEFAULT_THEMENAME } from 'containers/App/constants';
 
 const testComponent: React.SFC<any> = () =>
   <div />;
@@ -28,7 +28,7 @@ describe('<ConnectedThemeProvider />', () => {
   let store: any;
 
   beforeAll(() => {
-    store = configureStore({}, createMemoryHistory());
+    store = configureStore({}, createHistory());
   });
 
   it('should render the default theme style', () => {

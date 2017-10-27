@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import ConnectedLanguageProvider, { LanguageProvider } from '../index';
 import configureStore from '../../../store';
 import { Provider } from 'react-redux';
-import { createMemoryHistory } from 'react-router';
+import createHistory from 'history/createBrowserHistory';
 
 import { translationMessages } from '../../../i18n';
 
@@ -32,7 +32,7 @@ describe('<ConnectedLanguageProvider />', () => {
   let store: any;
 
   beforeAll(() => {
-    store = configureStore({}, createMemoryHistory());
+    store = configureStore({}, createHistory());
   });
 
   it('should render the default language messages', () => {
