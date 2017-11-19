@@ -1,12 +1,14 @@
 language: node_js
 node_js:
-  - '7'
+  - '8'
 cache:
   directories:
     - node_modules
+before_install:
+  - npm install -g yarn
 install:
-  - npm install
-  - npm install coveralls
+  - yarn
+  - yarn add coveralls
 script:
   - npm run build  # build
   - npm run test  # run mocha unit tests with coverage
