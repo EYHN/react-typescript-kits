@@ -1,6 +1,7 @@
 import DefaultTheme from './themes/defaultTheme';
 import LightTheme from './themes/lightTheme';
 import DarkTheme from './themes/darkTheme';
+import invariant from 'invariant';
 
 const ThemedStyleSheet = require('react-with-styles/lib/ThemedStyleSheet').default;
 const aphroditeInterface = require('react-with-styles-interface-aphrodite').default;
@@ -30,9 +31,17 @@ const $withStyles: typeof withStyles = (s, option) => (
   })
 );
 
+const $css: typeof css = (style: any) => {
+  invariant(
+    style,
+    'The style can\'t be ' + style + '.'
+  );
+  return css(style);
+};
+
 export const appThemes = {
   light: LightTheme,
   dark: DarkTheme
 };
 
-export { css, $withStyles as withStyles, ThemeProvider, ThemedStyleSheet };
+export { $css as css, $withStyles as withStyles, ThemeProvider, ThemedStyleSheet };
