@@ -31,12 +31,8 @@ const $withStyles: typeof withStyles = (s, option) => (
   })
 );
 
-const $css: typeof css = (style: any) => {
-  invariant(
-    style,
-    'The style can\'t be ' + style + '.'
-  );
-  return css(style);
+const $css: typeof css = (...style: any[]) => {
+  return css(...style);
 };
 
 export const appThemes = {
