@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "start": "http-server dist -a 127.0.0.1 -p 8080 -o",
     "dev": "webpack-dev-server --inline --progress",
-    "build": "npm run lint && webpack  --config webpack.config.prod.js",
+    "build": "npm run clean && npm run lint && webpack  --config webpack.config.prod.js",
     "lint": "tslint --force --format verbose \"src/**/*.{ts,tsx}\"",
     "test": "jest --config jest.json"
   },
