@@ -51,6 +51,7 @@
     "enzyme-adapter-react-16": "1.1.0",
     "file-loader": "1.1.5",
     "html-webpack-plugin": "2.30.1",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "21.2.1",
     "node-sass": "4.7.1",
     "path": "0.12.7",

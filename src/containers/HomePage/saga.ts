@@ -1,12 +1,12 @@
 import { hitokotoLoaded, hitokotoLoadingError, loadHitokoto } from 'containers/HomePage/actions';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { LOAD_HITOKOTO } from 'containers/HomePage/constants';
 
 export function* getHitokoto() {
   try {
-    const res = yield fetch('https://sslapi.hitokoto.cn/');
-    const data = yield res.json();
-    const hitokoto = data.hitokoto;
+    const res = yield call(fetch, 'https://sslapi.hitokoto.cn/');
+    const data = yield call(res.json);
+    const hitokoto = yield data.hitokoto;
     yield put(hitokotoLoaded(hitokoto));
   } catch (err) {
     yield put(hitokotoLoadingError(err));
