@@ -1,3 +1,4 @@
 {
-  "app.title": "hello world!"
+  "app.title": "hello world!",
+  "app.loading": "loading..."
 }
