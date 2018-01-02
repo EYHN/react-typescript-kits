@@ -13,7 +13,7 @@ import { IWithStyleProps } from '../../Interfaces/react-with-style';
     'background-color': color.background
   }
 }))
-export default class Helloworld extends React.Component<IWithStyleProps, undefined> {
+export default class Helloworld extends React.PureComponent<IWithStyleProps, undefined> {
   public render() {
     return (
       <div>
