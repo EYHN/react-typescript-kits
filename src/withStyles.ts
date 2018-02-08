@@ -1,15 +1,14 @@
 import DefaultTheme from './themes/defaultTheme';
 import LightTheme from './themes/lightTheme';
 import DarkTheme from './themes/darkTheme';
-import invariant from 'invariant';
 
 const ThemedStyleSheet = require('react-with-styles/lib/ThemedStyleSheet').default;
 const aphroditeInterface = require('react-with-styles-interface-aphrodite').default;
 const { css, withStyles, ThemeProvider }:
   {
-    css: any,
-    withStyles: (s: (theme: IThemeProps) => {}, option?: IwithStylesOption) => <T>(component: T) => T,
-    ThemeProvider: any
+    css: any;
+    withStyles: (s: (theme: IThemeProps) => {}, option?: IwithStylesOption) => <T>(component: T) => T;
+    ThemeProvider: any;
   }
   = require('react-with-styles');
 

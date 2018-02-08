@@ -8,9 +8,6 @@ import { withStyles, appThemes } from 'withStyles';
 import { IWithStyleProps } from 'Interfaces/react-with-style';
 import { DEFAULT_THEMENAME } from 'containers/App/constants';
 
-const testComponent: React.SFC<any> = () =>
-  <div />;
-
 describe('<ThemeProvider />', () => {
 
   it('should render its children', () => {

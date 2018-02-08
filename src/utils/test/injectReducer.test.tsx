@@ -7,6 +7,7 @@ import configureStore from 'store';
 import injectReducer from '../injectReducer';
 import * as reducerInjectors from '../reducerInjectors';
 import { IStore } from 'Interfaces/store';
+import { Reducer } from 'redux';
 
 const Component: React.SFC = () => null;
 
@@ -14,7 +15,7 @@ const reducer = identity;
 
 describe('injectReducer decorator', () => {
   let store: IStore;
-  let injectors: { injectReducer: Function };
+  let injectors: { injectReducer: Reducer<any> };
   let ComponentWithReducer: React.ComponentClass;
 
   beforeAll(() => {
@@ -24,7 +25,7 @@ describe('injectReducer decorator', () => {
   beforeEach(() => {
     store = configureStore({}, createMemoryHistory());
     injectors = {
-      injectReducer: jest.fn(),
+      injectReducer: jest.fn()
     };
     ComponentWithReducer = injectReducer({ key: 'test', reducer })(Component) as React.ComponentClass;
     (reducerInjectors.default as jest.Mock).mockClear();

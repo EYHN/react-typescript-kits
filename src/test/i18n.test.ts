@@ -4,13 +4,13 @@ import { formatTranslationMessages } from '../i18n';
 jest.mock('../translations/en.json', () => (
   {
     message1: 'default message',
-    message2: 'default message 2',
+    message2: 'default message 2'
   }
 ));
 
 const esTranslationMessages = {
   message1: 'mensaje predeterminado',
-  message2: '',
+  message2: ''
 };
 
 describe('formatTranslationMessages', () => {
@@ -25,7 +25,7 @@ describe('formatTranslationMessages', () => {
 
     expect(result).toEqual({
       message1: 'mensaje predeterminado',
-      message2: 'default message 2',
+      message2: 'default message 2'
     });
   });
 });

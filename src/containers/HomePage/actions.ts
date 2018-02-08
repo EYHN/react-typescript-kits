@@ -1,35 +1,15 @@
 import { LOAD_HITOKOTO, LOAD_HITOKOTO_SUCCESS, LOAD_HITOKOTO_ERROR } from 'containers/HomePage/constants';
+import { createAction } from 'typesafe-actions';
 
-export interface ILoadHitokotoAction {
-  type: typeof LOAD_HITOKOTO;
-}
+export const loadHitokoto = createAction(LOAD_HITOKOTO);
 
-export interface IHitokotoLoaded {
-  type: typeof LOAD_HITOKOTO_SUCCESS;
-  hitokoto: string;
-}
+export const hitokotoLoaded = createAction(LOAD_HITOKOTO_SUCCESS, (hitokoto: string) => ({
+  type: LOAD_HITOKOTO_SUCCESS,
+  payload: hitokoto
+}));
 
-export interface IHitokotoLoadingError {
-  type: typeof LOAD_HITOKOTO_ERROR;
-  error: any;
-}
-
-export function loadHitokoto(): ILoadHitokotoAction {
-  return {
-    type: LOAD_HITOKOTO,
-  };
-}
-
-export function hitokotoLoaded(hitokoto: string): IHitokotoLoaded {
-  return {
-    type: LOAD_HITOKOTO_SUCCESS,
-    hitokoto
-  };
-}
-
-export function hitokotoLoadingError(error: any): IHitokotoLoadingError {
-  return {
-    type: LOAD_HITOKOTO_ERROR,
-    error
-  };
-}
+export const hitokotoLoadingError = createAction(LOAD_HITOKOTO_ERROR, (error: any) => ({
+  type: LOAD_HITOKOTO_ERROR,
+  payload: error,
+  error: true
+}));

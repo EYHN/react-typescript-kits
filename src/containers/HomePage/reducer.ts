@@ -1,11 +1,9 @@
 import { fromJS } from 'immutable';
-
-import {
-  LOAD_HITOKOTO,
-  LOAD_HITOKOTO_SUCCESS,
-  LOAD_HITOKOTO_ERROR
-} from './constants';
-import { ILoadHitokotoAction, IHitokotoLoaded, IHitokotoLoadingError } from 'containers/HomePage/actions';
+import { $call } from 'utility-types';
+import * as actions from './actions';
+import { getType } from 'typesafe-actions';
+const returnsOfActions = Object.values(actions).map($call);
+export type HomeAction = typeof returnsOfActions[number];
 
 const initialState = fromJS({
   loading: false,
@@ -13,20 +11,18 @@ const initialState = fromJS({
   hitokoto: undefined
 });
 
-type IAction = ILoadHitokotoAction | IHitokotoLoaded | IHitokotoLoadingError;
-
-export default function homeReducer(state = initialState, action: IAction) {
+export default function homeReducer(state = initialState, action: HomeAction) {
   switch (action.type) {
-    case LOAD_HITOKOTO:
+    case getType(actions.loadHitokoto):
       return state
         .set('loading', true)
         .set('error', false)
         .set('hitokoto', undefined);
-    case LOAD_HITOKOTO_SUCCESS:
+    case getType(actions.hitokotoLoaded):
       return state
         .set('loading', false)
-        .set('hitokoto', action.hitokoto);
-    case LOAD_HITOKOTO_ERROR:
+        .set('hitokoto', action.payload);
+    case getType(actions.hitokotoLoadingError):
       return state
         .set('error', action.error)
         .set('loading', false);

@@ -8,7 +8,7 @@ const zhTranslationMessages = require('./translations/zh.json') as Messages;
 
 export const appLocales = [
   'en',
-  'zh',
+  'zh'
 ];
 
 addLocaleData(enLocaleData);
@@ -31,5 +31,5 @@ export const formatTranslationMessages = (locale: string, messages: Messages) =>
 
 export const translationMessages: LanguageMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
-  zh: formatTranslationMessages('zh', zhTranslationMessages),
+  zh: formatTranslationMessages('zh', zhTranslationMessages)
 };

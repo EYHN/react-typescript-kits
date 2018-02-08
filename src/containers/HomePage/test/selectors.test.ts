@@ -8,10 +8,10 @@ import {
 describe('selectHome', () => {
   it('should select the home state', () => {
     const homeState = fromJS({
-      hitokoto: '123',
+      hitokoto: '123'
     });
     const mockedState = fromJS({
-      home: homeState,
+      home: homeState
     });
     expect(selectHome(mockedState)).toEqual(homeState);
   });
@@ -23,8 +23,8 @@ describe('makeSelectHitokoto', () => {
     const hitokoto = '123';
     const mockedState = fromJS({
       home: {
-        hitokoto,
-      },
+        hitokoto
+      }
     });
     expect(hitokotoSelector(mockedState)).toEqual(hitokoto);
   });

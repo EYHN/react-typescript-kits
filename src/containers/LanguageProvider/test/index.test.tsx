@@ -12,8 +12,8 @@ const messages = defineMessages({
   someMessage: {
     id: 'some.id',
     defaultMessage: 'This is some default message',
-    en: 'This is some en message',
-  },
+    en: 'This is some en message'
+  }
 });
 
 describe('<LanguageProvider />', () => {

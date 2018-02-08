@@ -11,7 +11,7 @@ describe('ThemeProvider actions', () => {
     it('has a type of CHANGE_THEMENAME', () => {
       const expected = {
         type: CHANGE_THEMENAME,
-        themeName: 'newThemeName'
+        payload: 'newThemeName'
       };
       expect(changeTheme('newThemeName')).toEqual(expected);
     });

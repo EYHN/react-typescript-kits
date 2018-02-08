@@ -8,14 +8,14 @@ import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore(initialState = {}, history: History) {
+export default function configureStore(initialState: any = {}, history: History) {
   const middlewares = [
     sagaMiddleware,
-    routerMiddleware(history),
+    routerMiddleware(history)
   ];
 
   const enhancers = [
-    applyMiddleware(...middlewares),
+    applyMiddleware(...middlewares)
   ];
 
   const composeEnhancers =

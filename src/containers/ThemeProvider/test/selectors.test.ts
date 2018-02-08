@@ -8,7 +8,7 @@ describe('selectTheme', () => {
   it('should select the global state', () => {
     const globalState = fromJS({});
     const mockedState = fromJS({
-      theme: globalState,
+      theme: globalState
     });
     expect(selectTheme(mockedState)).toEqual(globalState);
   });

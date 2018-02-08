@@ -1,16 +1,18 @@
 import { fromJS } from 'immutable';
-
-import { CHANGE_LOCALE } from './constants';
+import { $call } from 'utility-types';
+import * as actions from './actions';
+import { getType } from 'typesafe-actions';
 import { DEFAULT_LOCALE } from 'containers/App/constants';
-import { IAction } from './actions';
+const returnsOfActions = Object.values(actions).map($call);
+export type LanguageAction = typeof returnsOfActions[number];
 
 const initialState = fromJS({
-  locale: DEFAULT_LOCALE,
+  locale: DEFAULT_LOCALE
 });
 
-export default function languageProviderReducer(state = initialState, action: IAction) {
+export default function languageProviderReducer(state = initialState, action: LanguageAction) {
   switch (action.type) {
-    case CHANGE_LOCALE:
+    case getType(actions.changeLocale):
       return state
         .set('locale', action.locale);
     default:

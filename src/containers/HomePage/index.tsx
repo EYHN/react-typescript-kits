@@ -3,7 +3,6 @@ import { createSelector } from 'reselect';
 import React from 'react';
 import { Dispatch, compose } from 'redux';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
 import Helloworld from 'components/helloworld/index';
 import { changeLocale } from 'containers/LanguageProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -42,35 +41,37 @@ type Props = typeof stateProps & IHomePageProps & typeof dispatchProps;
 
 export class HomePage extends React.PureComponent<Props, undefined> {
 
+  handleLocaleSelectChange: React.ReactEventHandler<HTMLSelectElement> = (e) => {
+    this.props.changeLocale(e.currentTarget.value);
+  }
+
+  handleThemeSelectChange: React.ReactEventHandler<HTMLSelectElement> = (e) => {
+    this.props.changeTheme(e.currentTarget.value);
+  }
+
   public render() {
+    const appLocalesItems = appLocales.map((locale) => {
+      return <option key={locale} value={locale}>{locale}</option>;
+    });
+    const appThemesItems = Object.keys(appThemes).map((theme) => {
+      return <option key={theme} value={theme}>{theme}</option>;
+    });
     return (
       <div>
         <Helloworld />
         <select
           name='Locale'
           value={this.props.locale}
-          onChange={(e) => {
-            this.props.changeLocale(e.currentTarget.value);
-          }}
+          onChange={this.handleLocaleSelectChange}
         >
-          {
-            appLocales.map((locale) => {
-              return <option key={locale} value={locale}>{locale}</option>;
-            })
-          }
+          {appLocalesItems}
         </select>
         <select
           name='Theme'
           value={this.props.theme}
-          onChange={(e) => {
-            this.props.changeTheme(e.currentTarget.value);
-          }}
+          onChange={this.handleThemeSelectChange}
         >
-          {
-            Object.keys(appThemes).map((theme) => {
-              return <option key={theme} value={theme}>{theme}</option>;
-            })
-          }
+          {appThemesItems}
         </select>
         <p>{this.props.hitokoto}</p>
       </div>
@@ -87,5 +88,5 @@ const withSaga = injectSaga({ key: 'home', saga });
 export default compose(
   withReducer,
   withSaga,
-  withConnect,
+  withConnect
 )(HomePage);

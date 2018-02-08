@@ -1,36 +1,37 @@
-import hitokotoData, {getHitokoto} from 'containers/HomePage/saga';
-import {put, takeLatest} from 'redux-saga/effects';
+import hitokotoData, {getHitokoto, fetchHitokoto} from 'containers/HomePage/saga';
+import {put, takeLatest, call} from 'redux-saga/effects';
 import {hitokotoLoaded, hitokotoLoadingError, loadHitokoto} from 'containers/HomePage/actions';
 import {LOAD_HITOKOTO} from 'containers/HomePage/constants';
 
 describe('getHitokoto Saga', () => {
   let getHitokotoGenerator: IterableIterator<any>;
 
-  // We have to test twice, once for a successful load and once for an unsuccessful one
-  // so we do all the stuff that happens beforehand automatically in the beforeEach
-  beforeEach(() => {
+  it('should call the fetchHitokoto function', () => {
     getHitokotoGenerator = getHitokoto();
 
     const callfetchDescriptor = getHitokotoGenerator.next().value;
-    expect(callfetchDescriptor).toMatchSnapshot();
-
-    const calljsonDescriptor = getHitokotoGenerator.next({json: () => ({})});
-    expect(calljsonDescriptor).toMatchSnapshot();
-
-    const getHitokotoDescriptor = getHitokotoGenerator.next({hitokoto: '123'});
-    expect(getHitokotoDescriptor).toMatchSnapshot();
+    expect(callfetchDescriptor).toEqual(call(fetchHitokoto));
   });
 
-  it('should dispatch the hitokotoLoaded action if it requests the data successfully', () => {
-    const hitokoto = '123';
-    const putDescriptor = getHitokotoGenerator.next(hitokoto).value;
-    expect(putDescriptor).toEqual(put(hitokotoLoaded(hitokoto)));
-  });
+  describe('after requests', () => {
+    beforeEach(() => {
+      getHitokotoGenerator = getHitokoto();
 
-  it('should call the hitokotoLoadingError action if the response errors', () => {
-    const response = new Error('Some error');
-    const putDescriptor = getHitokotoGenerator.throw(response).value;
-    expect(putDescriptor).toEqual(put(hitokotoLoadingError(response)));
+      const callfetchDescriptor = getHitokotoGenerator.next().value;
+      expect(callfetchDescriptor).toMatchSnapshot();
+    });
+
+    it('should dispatch the hitokotoLoaded action if it requests the data successfully', () => {
+      const hitokoto = '123';
+      const putDescriptor = getHitokotoGenerator.next({hitokoto}).value;
+      expect(putDescriptor).toEqual(put(hitokotoLoaded(hitokoto)));
+    });
+
+    it('should call the hitokotoLoadingError action if the response errors', () => {
+      const response = new Error('Some error');
+      const putDescriptor = getHitokotoGenerator.throw(response).value;
+      expect(putDescriptor).toEqual(put(hitokotoLoadingError(response)));
+    });
   });
 });
 

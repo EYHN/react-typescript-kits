@@ -1,12 +1,6 @@
 import {fromJS} from 'immutable';
 
 import homeReducer from '../reducer';
-import {
-  LOAD_HITOKOTO,
-  LOAD_HITOKOTO_SUCCESS,
-  LOAD_HITOKOTO_ERROR
-} from '../constants';
-import {DEFAULT_LOCALE} from '../../App/constants';
 import {loadHitokoto, hitokotoLoaded, hitokotoLoadingError} from 'containers/HomePage/actions';
 
 describe('homeReducer', () => {
@@ -44,10 +38,10 @@ describe('homeReducer', () => {
 
   it('should handle the hitokotoLoadingError action correctly', () => {
     const fixture = {
-      msg: 'Not found',
+      msg: 'Not found'
     };
     const expectedResult = state
-      .set('error', fixture)
+      .set('error', true)
       .set('loading', false)
       .set('hitokoto', undefined);
 

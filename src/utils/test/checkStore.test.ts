@@ -1,5 +1,4 @@
 import checkStore from '../checkStore';
-import { IStore } from 'Interfaces/store';
 
 describe('checkStore', () => {
   let store: any;
@@ -14,7 +13,7 @@ describe('checkStore', () => {
       replaceReducer: () => Void,
       runSaga: () => Void,
       injectedReducers: {},
-      injectedSagas: {},
+      injectedSagas: {}
     };
   });
 

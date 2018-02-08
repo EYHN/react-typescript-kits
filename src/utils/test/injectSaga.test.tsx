@@ -16,8 +16,8 @@ function* testSaga() {
 
 describe('injectSaga decorator', () => {
   let store: IStore;
-  let injectors: { injectSaga: Function, ejectSaga: Function };
-  let ComponentWithSaga: React.ComponentClass;
+  let injectors: { injectSaga: () => any; ejectSaga: () => any };
+  let ComponentWithSaga: React.ComponentClass<{test: string}>;
 
   beforeAll(() => {
     (sagaInjectors as any).default = jest.fn().mockImplementation(() => injectors);
@@ -27,10 +27,10 @@ describe('injectSaga decorator', () => {
     store = configureStore({}, createMemoryHistory());
     injectors = {
       injectSaga: jest.fn(),
-      ejectSaga: jest.fn(),
+      ejectSaga: jest.fn()
     };
     ComponentWithSaga =
-      injectSaga({ key: 'test', saga: testSaga, mode: 'testMode' })(Component) as React.ComponentClass;
+      injectSaga({ key: 'test', saga: testSaga, mode: 'testMode' })(Component);
     (sagaInjectors.default as jest.Mock).mockClear();
   });
 
@@ -57,9 +57,9 @@ describe('injectSaga decorator', () => {
   });
 
   it('should propagate props', () => {
-    const props = { testProp: 'test' };
+    const props = { test: 'test' };
     const renderedComponent = shallow(<ComponentWithSaga {...props} />, { context: { store } });
 
-    expect(renderedComponent.prop('testProp')).toBe('test');
+    expect(renderedComponent.prop('test')).toBe('test');
   });
 });

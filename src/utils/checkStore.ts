@@ -13,7 +13,7 @@ export default function checkStore(store: IStore) {
     replaceReducer: isFunction,
     runSaga: isFunction,
     injectedReducers: isObject,
-    injectedSagas: isObject,
+    injectedSagas: isObject
   };
   invariant(
     conformsTo(store, shape),

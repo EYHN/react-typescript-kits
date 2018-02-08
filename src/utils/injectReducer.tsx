@@ -5,12 +5,12 @@ const hoistNonReactStatics = require('hoist-non-react-statics');
 import getInjectors from './reducerInjectors';
 import { Reducer } from 'redux';
 
-export default ({ key , reducer }: {key: string, reducer: Reducer<any>}) =>
+export default ({ key , reducer }: {key: string; reducer: Reducer<any>}) =>
     (WrappedComponent: React.ComponentClass | React.StatelessComponent) => {
   class ReducerInjector extends React.Component {
     static WrappedComponent = WrappedComponent;
     static contextTypes = {
-      store: PropTypes.object.isRequired,
+      store: PropTypes.object.isRequired
     };
     static displayName = `withReducer(${(WrappedComponent.displayName || WrappedComponent.name || 'Component')})`;
     injectors = getInjectors(this.context.store);

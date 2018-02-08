@@ -3,6 +3,6 @@ import { SagaMiddleware } from 'redux-saga';
 
 export interface IStore extends Store<any> {
   injectedReducers: any;
-  runSaga: Function;
+  runSaga: SagaMiddleware<any>['run'];
   injectedSagas: any;
 }

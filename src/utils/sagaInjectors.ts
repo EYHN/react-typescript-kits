@@ -8,6 +8,7 @@ import {
   RESTART_ON_REMOUNT,
 } from './constants';
 import { IStore } from '../Interfaces/store';
+import { SagaIterator } from 'redux-saga';
 
 const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 
@@ -17,14 +18,14 @@ const checkKey = (key: string) => invariant(
 );
 
 interface Descriptor {
-  saga?: Function;
+  saga?: SagaIterator;
   mode?: string;
 }
 
 const checkDescriptor = (descriptor: Descriptor) => {
   const shape = {
     saga: isFunction,
-    mode: (mode: string) => isString(mode) && allowedModes.includes(mode),
+    mode: (mode: string) => isString(mode) && allowedModes.includes(mode)
   };
   invariant(
     conformsTo(descriptor, shape),
@@ -33,8 +34,8 @@ const checkDescriptor = (descriptor: Descriptor) => {
 };
 
 export function injectSagaFactory(store: IStore, isValid: boolean = false) {
-  return function injectSaga(key: string, descriptor: any = {}, args?: any) {
-    if (!isValid) checkStore(store);
+  return (key: string, descriptor: any = {}, args?: any) => {
+    if (!isValid) { checkStore(store); }
 
     const newDescriptor = { ...descriptor, mode: descriptor.mode || RESTART_ON_REMOUNT };
     const { saga, mode } = newDescriptor;
@@ -59,8 +60,8 @@ export function injectSagaFactory(store: IStore, isValid: boolean = false) {
 }
 
 export function ejectSagaFactory(store: IStore, isValid: boolean = false) {
-  return function ejectSaga(key: string) {
-    if (!isValid) checkStore(store);
+  return (key: string) => {
+    if (!isValid) { checkStore(store); }
 
     checkKey(key);
 
@@ -81,6 +82,6 @@ export default function getInjectors(store: IStore) {
 
   return {
     injectSaga: injectSagaFactory(store, true),
-    ejectSaga: ejectSagaFactory(store, true),
+    ejectSaga: ejectSagaFactory(store, true)
   };
 }

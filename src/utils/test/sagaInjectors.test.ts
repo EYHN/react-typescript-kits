@@ -34,7 +34,7 @@ describe('injectors', () => {
     it('should return injectors', () => {
       expect(getInjectors(store)).toEqual(expect.objectContaining({
         injectSaga: expect.any(Function),
-        ejectSaga: expect.any(Function),
+        ejectSaga: expect.any(Function)
       }));
     });
 

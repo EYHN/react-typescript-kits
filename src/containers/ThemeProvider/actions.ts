@@ -1,12 +1,9 @@
 import {
   CHANGE_THEMENAME,
 } from './constants';
+import { createAction } from 'typesafe-actions';
 
-export interface IAction {
-  type: typeof CHANGE_THEMENAME;
-  themeName: string;
-}
-
-export function changeTheme(themeName: string): IAction {
-  return { type: CHANGE_THEMENAME as typeof CHANGE_THEMENAME, themeName };
-}
+export const changeTheme = createAction(CHANGE_THEMENAME, (themeName: string) => ({
+  type: CHANGE_THEMENAME,
+  payload: themeName
+}));
