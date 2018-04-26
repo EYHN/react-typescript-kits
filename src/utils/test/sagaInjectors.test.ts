@@ -12,7 +12,7 @@ import {
   RESTART_ON_REMOUNT,
 } from '../constants';
 import { IStore } from '../../Interfaces/store';
-import { returntypeof } from 'react-redux-typescript';
+import { $Call } from 'utility-types';
 
 function* testSaga() {
   yield put({ type: 'TEST', payload: 'yup' });
@@ -21,10 +21,8 @@ function* testSaga() {
 describe('injectors', () => {
   const originalNodeEnv = process.env.NODE_ENV;
   let store: IStore;
-  const injectSagatype = returntypeof(injectSagaFactory);
-  let injectSaga: typeof injectSagatype;
-  const ejectSagatype = returntypeof(ejectSagaFactory);
-  let ejectSaga: typeof ejectSagatype;
+  let injectSaga: $Call<typeof injectSagaFactory>;
+  let ejectSaga: $Call<typeof ejectSagaFactory>;
 
   describe('getInjectors', () => {
     beforeEach(() => {

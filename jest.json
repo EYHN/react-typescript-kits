@@ -18,7 +18,10 @@
   "globals": {
     "ts-jest": {
       "tsConfigFile": "tsconfig.json",
-      "useBabelrc": true
+      "useBabelrc": true,
+      "babelConfig": {
+        "plugins": ["dynamic-import-node"]
+      }
     }
   }
 }

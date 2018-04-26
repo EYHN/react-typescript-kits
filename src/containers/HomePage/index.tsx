@@ -1,4 +1,4 @@
-import { returntypeof } from 'react-redux-typescript';
+
 import { createSelector } from 'reselect';
 import React from 'react';
 import { Dispatch, compose } from 'redux';
@@ -17,6 +17,7 @@ import saga from './saga';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectHitokoto } from 'containers/HomePage/selectors';
+import { $Call } from 'utility-types';
 
 interface IHomePageProps {
 }
@@ -34,10 +35,10 @@ export const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   onGetHitokoto: () => (dispatch(loadHitokoto()))
 });
 
-const stateProps = returntypeof(mapStateToProps);
-const dispatchProps = returntypeof(mapDispatchToProps);
+type stateProps = $Call<typeof mapStateToProps>;
+type dispatchProps = $Call<typeof mapDispatchToProps>;
 
-type Props = typeof stateProps & IHomePageProps & typeof dispatchProps;
+type Props = stateProps & IHomePageProps & dispatchProps;
 
 export class HomePage extends React.PureComponent<Props, undefined> {
 
@@ -80,7 +81,7 @@ export class HomePage extends React.PureComponent<Props, undefined> {
 }
 
 // tslint:disable-next-line:max-line-length
-const withConnect = connect<typeof stateProps, typeof dispatchProps, IHomePageProps>(mapStateToProps, mapDispatchToProps);
+const withConnect = connect<stateProps, dispatchProps, IHomePageProps>(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
 const withSaga = injectSaga({ key: 'home', saga });

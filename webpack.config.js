@@ -1,16 +1,10 @@
 var webpack = require('webpack');
 var path = require('path');
-var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const GLOBALS = {
-    'process.env.NODE_ENV': JSON.stringify('development'),
-    __DEV__: true
-};
-
 var HtmlWebpackConfig = {
-    title: 'hexo',
+    title: 'react',
     filename: 'index.html',
     template: "./src/index.html",
     hash: true,
@@ -19,23 +13,18 @@ var HtmlWebpackConfig = {
 
 
 module.exports = {
+    mode: "development",
     entry: [
-        'webpack-dev-server/client?http://localhost:8888',
-        'webpack/hot/only-dev-server',
-        "./src/main.tsx"
+        './src/main.tsx'
     ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
     },
     
-    devtool: "eval-source-map",
+    devtool: "source-map",
 
     plugins: [
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin(GLOBALS),
         new HtmlWebpackPlugin(HtmlWebpackConfig)
     ],
 
@@ -53,32 +42,6 @@ module.exports = {
                         loader: "awesome-typescript-loader",
                         options: {
                             useBabel: true
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.(scss)$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: true
                         }
                     }
                 ]
@@ -131,9 +94,6 @@ module.exports = {
                         loader: 'babel-loader'
                     }
                 ],
-            },
-            {
-                test: /\.md$/, use: [{ loader: 'raw-loader' }]
             }
         ]
     },
@@ -144,13 +104,8 @@ module.exports = {
         contentBase: path.resolve(__dirname, "src"),
         historyApiFallback: true,
         open: true,
-        hot: true,
-        proxy: {
-            // OPTIONAL: proxy configuration:
-            // '/optional-prefix/**': { // path pattern to rewrite
-            //   target: 'http://target-host.com',
-            //   pathRewrite: path => path.replace(/^\/[^\/]+\//, '')   // strip first path segment
-            // }
+        headers: {
+            "access-control-allow-origin":"*"
         }
     }
 }

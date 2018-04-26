@@ -1,7 +1,6 @@
 import { createMemoryHistory } from 'history';
 import { fromJS } from 'immutable';
 import identity from 'lodash/identity';
-import { returntypeof } from 'react-redux-typescript';
 import configureStore from '../../store';
 
 import getInjectors, {
@@ -9,6 +8,7 @@ import getInjectors, {
 } from '../reducerInjectors';
 import { Action } from 'redux';
 import { IStore } from '../../Interfaces/store';
+import { $Call } from 'utility-types';
 
 const initialState = fromJS({ reduced: 'soon' });
 
@@ -23,8 +23,7 @@ const reducer = (state = initialState, action: Action & { payload: any }) => {
 
 describe('reducer injectors', () => {
   let store: IStore;
-  const injectReducertype = returntypeof(injectReducerFactory);
-  let injectReducer: typeof injectReducertype;
+  let injectReducer: $Call<typeof injectReducerFactory>;
 
   describe('getInjectors', () => {
     beforeEach(() => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { ThemeProvider as WithStyleThemeProvider } from '../../withStyles';
 import { createSelector } from 'reselect';
 import { makeSelectThemeName } from './selectors';
-import { returntypeof } from 'react-redux-typescript';
 import { connect } from 'react-redux';
+import { $Call } from 'utility-types';
 
 interface IThemeProviderProps {
 }
@@ -13,9 +13,9 @@ const mapStateToProps = createSelector(
   (themeName) => ({ themeName })
 );
 
-const stateProps = returntypeof(mapStateToProps);
+type stateProps = $Call<typeof mapStateToProps>;
 
-type Props = typeof stateProps & IThemeProviderProps;
+type Props = stateProps & IThemeProviderProps;
 
 export class ThemeProvider extends React.PureComponent<Props, undefined> {
   public render() {
@@ -27,4 +27,4 @@ export class ThemeProvider extends React.PureComponent<Props, undefined> {
   }
 }
 
-export default connect<typeof stateProps, {}, IThemeProviderProps>(mapStateToProps, {})(ThemeProvider);
+export default connect<stateProps, {}, IThemeProviderProps>(mapStateToProps, {})(ThemeProvider);

@@ -1,9 +1,8 @@
 import { fromJS } from 'immutable';
-import { $call } from 'utility-types';
+import { $Call, $Values } from 'utility-types';
 import * as actions from './actions';
 import { getType } from 'typesafe-actions';
-const returnsOfActions = Object.values(actions).map($call);
-export type HomeAction = typeof returnsOfActions[number];
+export type HomeAction = $Call<$Values<typeof actions>>;
 
 const initialState = fromJS({
   loading: false,

@@ -41,21 +41,7 @@ const render = (messages: LanguageMessages, Content: typeof App) => {
   );
 };
 
-if (!window.Intl) {
-  (new Promise((resolve) => {
-    resolve(System.import('intl'));
-  }))
-    .then(() => Promise.all([
-      System.import('intl/locale-data/jsonp/en.js'),
-      System.import('intl/locale-data/jsonp/de.js')
-    ]))
-    .then(() => render(translationMessages, App))
-    .catch((err) => {
-      throw err;
-    });
-} else {
-  render(translationMessages, App);
-}
+render(translationMessages, App);
 
 // 注入 sw
 if (process.env.NODE_ENV === 'production') {

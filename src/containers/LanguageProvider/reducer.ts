@@ -1,10 +1,9 @@
 import { fromJS } from 'immutable';
-import { $call } from 'utility-types';
+import { $Call, $Values } from 'utility-types';
 import * as actions from './actions';
 import { getType } from 'typesafe-actions';
 import { DEFAULT_LOCALE } from 'containers/App/constants';
-const returnsOfActions = Object.values(actions).map($call);
-export type LanguageAction = typeof returnsOfActions[number];
+export type LanguageAction = $Call<$Values<typeof actions>>;
 
 const initialState = fromJS({
   locale: DEFAULT_LOCALE

@@ -4,12 +4,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var OfflinePlugin = require('offline-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const GLOBALS = {
-    'process.env.NODE_ENV': JSON.stringify('production'),
-    __DEV__: false
-};
-
-
 var HtmlWebpackConfig = {
     title: 'hexo',
     filename: 'index.html',
@@ -30,11 +24,20 @@ var HtmlWebpackConfig = {
     },
 };
 
+const plugins = [
+    new OfflinePlugin({}),
+    new HtmlWebpackPlugin(HtmlWebpackConfig)
+];
+
+if (process.env.BUILD_ANALYZER) {
+    plugins.push(new BundleAnalyzerPlugin())
+}
+
 module.exports = {
-    entry: {
-        vendor: ["react", "react-dom", "immutable", "react-intl"],
-        app: "./src/main.tsx"
-    },
+    mode: "production",
+    entry: [
+        './src/main.tsx'
+    ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
@@ -42,19 +45,10 @@ module.exports = {
 
     devtool: "source-map",
 
-    plugins: [
-        new webpack.DefinePlugin(GLOBALS),
-        new HtmlWebpackPlugin(HtmlWebpackConfig),
-        new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
-        new OfflinePlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.js"
-        })
-    ],
+    plugins: plugins,
 
     resolve: {
-        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
         modules: [path.resolve(__dirname, "src"), "node_modules"]
     },
 
@@ -72,32 +66,6 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(scss)$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: true,
-                            localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: false
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: { sourceMap: true }
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    }
-                ]
-            },
-            {
                 test: /\.(css)$/,
                 use: [
                     {
@@ -108,7 +76,7 @@ module.exports = {
                         options: {
                             modules: true,
                             localIdentName: "[path][name]---[local]---[hash:base64:5]",
-                            sourceMap: false
+                            sourceMap: true
                         }
                     },
                     {
@@ -145,9 +113,6 @@ module.exports = {
                         loader: 'babel-loader'
                     }
                 ],
-            },
-            {
-                test: /\.md$/, use: [{ loader: 'raw-loader' }]
             }
         ]
     }

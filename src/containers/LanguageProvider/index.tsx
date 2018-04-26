@@ -1,9 +1,9 @@
 import React from 'react';
 import { createSelector } from 'reselect';
-import { returntypeof } from 'react-redux-typescript';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { makeSelectLocale } from './selectors';
+import { $Call } from 'utility-types';
 
 interface ILanguageProviderProps {
   messages: LanguageMessages;
@@ -14,9 +14,9 @@ const mapStateToProps = createSelector(
   (locale) => ({ locale })
 );
 
-const stateProps = returntypeof(mapStateToProps);
+type stateProps = $Call<typeof mapStateToProps>;
 
-type Props = typeof stateProps & ILanguageProviderProps;
+type Props = stateProps & ILanguageProviderProps;
 
 export class LanguageProvider extends React.PureComponent<Props, undefined> {
   public render() {
@@ -32,4 +32,4 @@ export class LanguageProvider extends React.PureComponent<Props, undefined> {
   }
 }
 
-export default connect<typeof stateProps, {}, ILanguageProviderProps>(mapStateToProps, {})(LanguageProvider);
+export default connect<stateProps, {}, ILanguageProviderProps>(mapStateToProps, {})(LanguageProvider);
