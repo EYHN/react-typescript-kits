@@ -4,7 +4,7 @@ import ConnectedThemeProvider, { ThemeProvider } from '../index';
 import { Provider } from 'react-redux';
 import configureStore from 'store';
 import createHistory from 'history/createBrowserHistory';
-import { withStyles, appThemes } from 'withStyles';
+import { withStyles, appThemes, IThemeProps } from 'withStyles';
 import { IWithStyleProps } from 'Interfaces/react-with-style';
 import { DEFAULT_THEMENAME } from 'containers/App/constants';
 
@@ -29,12 +29,13 @@ describe('<ConnectedThemeProvider />', () => {
   });
 
   it('should render the default theme style', () => {
-    const TestComponent: React.SFC<IWithStyleProps> = (props) => {
+    const mapStyleToProps = (theme: IThemeProps) => theme;
+    const TestComponent: React.SFC<IWithStyleProps<typeof mapStyleToProps>> = (props) => {
       expect(props.theme).toEqual(appThemes[DEFAULT_THEMENAME]);
       expect(props.styles).toBeDefined();
       return <div>test</div>;
     };
-    const TestComponentWithStyles = withStyles((theme) => theme)(TestComponent);
+    const TestComponentWithStyles = withStyles(mapStyleToProps)(TestComponent);
     const renderedComponent = mount(
       <Provider store={store}>
         <ConnectedThemeProvider>

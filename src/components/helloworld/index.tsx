@@ -1,10 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { css, withStyles } from '../../withStyles';
-import { IWithStyleProps } from '../../Interfaces/react-with-style';
+import { css, withStyles, IThemeProps } from 'withStyles';
+import { IWithStyleProps } from 'Interfaces/react-with-style';
 
-@withStyles(({ color }) => ({
+const mapStyleToProps = ({ color }: IThemeProps) => ({
   title: {
     'color': color.text,
     'fontSize': '100px',
@@ -12,8 +12,10 @@ import { IWithStyleProps } from '../../Interfaces/react-with-style';
     'transition': 'color 300ms',
     'background-color': color.background
   }
-}))
-export default class Helloworld extends React.PureComponent<IWithStyleProps, undefined> {
+});
+
+@withStyles(mapStyleToProps)
+export default class Helloworld extends React.PureComponent<IWithStyleProps<typeof mapStyleToProps>, undefined> {
   public render() {
     return (
       <div>

@@ -16,7 +16,7 @@ interface IwithStylesOption {
   pureComponent: boolean;
 }
 
-type IThemeProps = typeof DefaultTheme;
+export type IThemeProps = typeof DefaultTheme;
 
 ThemedStyleSheet.registerDefaultTheme(DefaultTheme);
 ThemedStyleSheet.registerInterface(aphroditeInterface);
