@@ -6,7 +6,7 @@
         "noImplicitAny": true,
         "module": "esnext",
         "target": "esnext",
-        "jsx": "react",
+        "jsx": "preserve",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
