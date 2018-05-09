@@ -33,6 +33,11 @@ const checkDescriptor = (descriptor: Descriptor) => {
   );
 };
 
+/**
+ * Return a function to run saga.
+ * @param store redux store
+ * @param isValid Has the store been checked?
+ */
 export function injectSagaFactory(store: IStore, isValid: boolean = false) {
   return (key: string, descriptor: any = {}, args?: any) => {
     if (!isValid) { checkStore(store); }
@@ -59,6 +64,11 @@ export function injectSagaFactory(store: IStore, isValid: boolean = false) {
   };
 }
 
+/**
+ * Return a function to remove saga.
+ * @param store redux store
+ * @param isValid Has the store been checked?
+ */
 export function ejectSagaFactory(store: IStore, isValid: boolean = false) {
   return (key: string) => {
     if (!isValid) { checkStore(store); }

@@ -1,7 +1,7 @@
 import LoadingIndicator from '../../components/LoadingIndicator';
-const Loadable = require('react-loadable');
+import { asyncComponent } from 'react-async-component';
 
-export default Loadable({
-  loader: () => import('./index'),
-  loading: LoadingIndicator
+export default asyncComponent({
+  resolve: () => import('./index'),
+  LoadingComponent: LoadingIndicator
 });
