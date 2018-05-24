@@ -3,7 +3,6 @@ import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { Action, Reducer } from 'redux';
 
-import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import themeProviderReducer from 'containers/ThemeProvider/reducer';
 
 const routeInitialState = fromJS({
@@ -24,7 +23,6 @@ function routeReducer(state = routeInitialState, action: Action & {payload: any}
 export default function createReducer(asyncReducers?: {[key: string]: Reducer<any>}) {
   return combineReducers({
     route: routeReducer,
-    language: languageProviderReducer,
     theme: themeProviderReducer,
     ...asyncReducers
   });

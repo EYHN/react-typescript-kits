@@ -5,8 +5,8 @@ import ConnectedLanguageProvider, { LanguageProvider } from '../index';
 import configureStore from '../../../store';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
-
-import { translationMessages } from '../../../i18n';
+import { IStore } from 'Interfaces/store';
+import { changeLocale, localeLoaded } from '../actions';
 
 const messages = defineMessages({
   someMessage: {
@@ -26,23 +26,43 @@ describe('<LanguageProvider />', () => {
     );
     expect(renderedComponent.contains(children)).toBe(true);
   });
+
+  it('should not render children if the language is not set', () => {
+    const children = (<h1>Test</h1>);
+    const renderedComponent = shallow(
+      <LanguageProvider messages={messages} locale={null}>
+        {children}
+      </LanguageProvider>
+    );
+    expect(renderedComponent.contains(children)).toBe(false);
+  });
 });
 
 describe('<ConnectedLanguageProvider />', () => {
-  let store: any;
+  let store: IStore;
 
-  beforeAll(() => {
+  it('should not render children if the language is not set', () => {
     store = configureStore({}, createHistory());
-  });
-
-  it('should render the default language messages', () => {
     const renderedComponent = mount(
       <Provider store={store}>
-        <ConnectedLanguageProvider messages={translationMessages}>
+        <ConnectedLanguageProvider>
           <FormattedMessage {...messages.someMessage} />
         </ConnectedLanguageProvider>
       </Provider>
     );
-    expect(renderedComponent.contains(<FormattedMessage {...messages.someMessage} />)).toBe(true);
+    expect(renderedComponent.contains(<FormattedMessage {...messages.someMessage} />)).toBe(false);
+  });
+
+  it('should render the language messages', () => {
+    store = configureStore({}, createHistory());
+    const renderedComponent = mount(
+      <Provider store={store}>
+        <ConnectedLanguageProvider>
+          <FormattedMessage {...messages.someMessage} />
+        </ConnectedLanguageProvider>
+      </Provider>
+    );
+    store.dispatch(localeLoaded({languageLocale: 'en', translationMessages: messages}));
+    expect(renderedComponent.contains(<FormattedMessage {...messages.someMessage} />)).toBe(false);
   });
 });

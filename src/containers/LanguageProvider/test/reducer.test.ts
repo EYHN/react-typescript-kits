@@ -2,20 +2,34 @@ import { fromJS } from 'immutable';
 
 import languageProviderReducer from '../reducer';
 import {
-  CHANGE_LOCALE,
+  CHANGE_LOCALE, LOAD_LOCALE_SUCCESS,
 } from '../constants';
-import { DEFAULT_LOCALE } from '../../App/constants';
 
 describe('languageProviderReducer', () => {
   it('returns the initial state', () => {
     expect(languageProviderReducer(undefined, {} as any)).toEqual(fromJS({
-      locale: DEFAULT_LOCALE
+      locale: null,
+      translationMessages: {}
     }));
   });
 
   it('changes the locale', () => {
     expect(languageProviderReducer(undefined, { type: CHANGE_LOCALE, locale: 'zh' }).toJS()).toEqual({
-      locale: 'zh'
+      locale: null,
+      translationMessages: {}
+    });
+  });
+
+  it('locale loaded', () => {
+    expect(languageProviderReducer(undefined,
+      {
+        type: LOAD_LOCALE_SUCCESS,
+        locale: 'zh',
+        payload: { a: 'b' }
+      }
+    ).toJS()).toEqual({
+      locale: 'zh',
+      translationMessages: {a: 'b'}
     });
   });
 });

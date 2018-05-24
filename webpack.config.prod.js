@@ -40,6 +40,7 @@ module.exports = {
     ],
     output: {
         filename: "bundle.js",
+        chunkFilename: "[name].js",
         path: __dirname + "/dist"
     },
 
@@ -60,7 +61,10 @@ module.exports = {
                     {
                         loader: "awesome-typescript-loader",
                         options: {
-                            useBabel: true
+                            useBabel: true,
+                            reportFiles: [
+                                "src/**/!(test)/*"
+                            ]
                         }
                     }
                 ]

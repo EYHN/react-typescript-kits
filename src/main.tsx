@@ -6,7 +6,6 @@ import LanguageProvider from './containers/LanguageProvider';
 import configureStore from './store';
 // tslint:disable-next-line:no-import-side-effect
 import 'sanitize.css/sanitize.css';
-import { translationMessages } from './i18n';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
 import App from './containers/App';
@@ -26,10 +25,10 @@ const store = configureStore(initialState, history);
 
 const MOUNT_NODE = document.getElementById('app');
 
-const render = (messages: LanguageMessages, Content: typeof App) => {
+const render = (Content: typeof App) => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
+      <LanguageProvider>
         <ThemeProvider>
           <ConnectedRouter history={history}>
             <Content />
@@ -41,7 +40,7 @@ const render = (messages: LanguageMessages, Content: typeof App) => {
   );
 };
 
-render(translationMessages, App);
+render(App);
 
 // 注入 sw
 if (process.env.NODE_ENV === 'production') {
@@ -51,6 +50,6 @@ if (process.env.NODE_ENV === 'production') {
 if (module.hot) {
   module.hot.accept(['./i18n', './containers/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-    render(require('./i18n').translationMessages, require('./containers/App').default);
+    render(require('./containers/App').default);
   });
 }

@@ -1,35 +1,40 @@
 import { DEFAULT_LOCALE } from './containers/App/constants';
-
-import { addLocaleData } from 'react-intl';
-const enLocaleData = require('react-intl/locale-data/en');
-const zhLocaleData = require('react-intl/locale-data/zh');
-const enTranslationMessages = require('./translations/en.json') as Messages;
-const zhTranslationMessages = require('./translations/zh.json') as Messages;
+import { LocaleData } from 'react-intl';
 
 export const appLocales = [
   'en',
-  'zh'
+  'ja',
+  'zh',
+  'zh-Hant'
 ];
 
-addLocaleData(enLocaleData);
-addLocaleData(zhLocaleData);
+export const localeDataLoaders: Record<string, () => Promise<{localeData?: LocaleData; messages: Messages}>> = {
+  'en': async () => ({
+    // 'en' locale data is react-intl Built-in
+    messages: await import(/* webpackChunkName: "lang-en" */ 'translations/en.json')
+  }),
+  'ja': async () => ({
+    localeData: (await import(/* webpackChunkName: "lang-ja" */ 'react-intl/locale-data/ja')).default,
+    messages: await import(/* webpackChunkName: "lang-ja" */ 'translations/ja.json')
+  }),
+  'zh': async () => ({
+    localeData: (await import(/* webpackChunkName: "lang-zh" */ 'react-intl/locale-data/zh')).default,
+    messages: await import(/* webpackChunkName: "lang-zh" */ 'translations/zh.json')
+  }),
+  'zh-Hant': async () => ({
+    localeData: (await import(/* webpackChunkName: "lang-zh-Hant" */ 'react-intl/locale-data/zh')).default,
+    messages: await import(/* webpackChunkName: "lang-zh-Hant" */ 'translations/zh-Hant.json')
+  })
+};
 
-export const formatTranslationMessages = (locale: string, messages: Messages) => {
-  const defaultFormattedMessages: Messages = locale !== DEFAULT_LOCALE
-    ? formatTranslationMessages(DEFAULT_LOCALE, enTranslationMessages)
-    : {};
+export function formatTranslationMessages(locale: string, messages: Messages, defaultTranslationMessages?: Messages) {
   return Object.keys(messages).reduce((formattedMessages, key) => {
     const formattedMessage = !messages[key] && locale !== DEFAULT_LOCALE
-      ? defaultFormattedMessages[key]
+      ? defaultTranslationMessages[key]
       : messages[key];
     return {
       ...formattedMessages,
       [key]: formattedMessage
     };
   }, {}) as Messages;
-};
-
-export const translationMessages: LanguageMessages = {
-  en: formatTranslationMessages('en', enTranslationMessages),
-  zh: formatTranslationMessages('zh', zhTranslationMessages)
-};
+}
