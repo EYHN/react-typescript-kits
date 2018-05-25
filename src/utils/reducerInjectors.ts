@@ -1,5 +1,4 @@
 import invariant from 'invariant';
-import { isEmpty, isFunction, isString } from 'lodash';
 
 import checkStore from './checkStore';
 import createReducer from '../reducers';
@@ -11,7 +10,7 @@ export function injectReducerFactory(store: IStore, isValid: boolean = false) {
     if (!isValid) { checkStore(store); }
 
     invariant(
-      isString(key) && !isEmpty(key) && isFunction(reducer),
+      typeof key === 'string' && !!key && typeof reducer === 'function',
       '(app/utils...) injectReducer: Expected `reducer` to be a reducer function'
     );
 

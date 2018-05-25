@@ -1,4 +1,3 @@
-import {isEmpty, isFunction, isString, conformsTo} from 'lodash';
 import invariant from 'invariant';
 
 import checkStore from './checkStore';
@@ -13,7 +12,7 @@ import { SagaIterator } from 'redux-saga';
 const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 
 const checkKey = (key: string) => invariant(
-  isString(key) && !isEmpty(key),
+  typeof key === 'string' && !!key,
   '(app/utils...) injectSaga: Expected `key` to be a non empty string'
 );
 
@@ -23,12 +22,8 @@ interface Descriptor {
 }
 
 const checkDescriptor = (descriptor: Descriptor) => {
-  const shape = {
-    saga: isFunction,
-    mode: (mode: string) => isString(mode) && allowedModes.includes(mode)
-  };
   invariant(
-    conformsTo(descriptor, shape),
+    typeof descriptor.saga === 'function' && allowedModes.includes(descriptor.mode) ,
     '(app/utils...) injectSaga: Expected a valid saga descriptor'
   );
 };

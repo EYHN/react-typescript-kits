@@ -4,9 +4,6 @@ import React from 'react';
 import { Dispatch, compose } from 'redux';
 import { connect } from 'react-redux';
 import Helloworld from 'components/helloworld/index';
-import { changeLocale } from 'containers/LanguageProvider/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { appLocales } from 'i18n';
 import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeName } from 'containers/ThemeProvider/selectors';
 import { appThemes } from 'withStyles';
@@ -18,21 +15,18 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectHitokoto } from 'containers/HomePage/selectors';
 import { $Call } from 'utility-types';
-import { FormattedRelative } from 'react-intl';
 import { ONCE_TILL_UNMOUNT } from 'utils/constants';
 
 interface IHomePageProps {
 }
 
 const mapStateToProps = createSelector(
-  makeSelectLocale(),
   makeSelectThemeName(),
   makeSelectHitokoto(),
-  (locale, theme, hitokoto) => ({ locale, theme, hitokoto })
+  (theme, hitokoto) => ({ theme, hitokoto })
 );
 
-export const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
-  changeLocale: (locale: string) => { dispatch(changeLocale(locale)); },
+export const mapDispatchToProps = (dispatch: Dispatch) => ({
   changeTheme: (theme: string) => {dispatch(changeTheme(theme)); },
   onGetHitokoto: () => (dispatch(loadHitokoto()))
 });
@@ -44,32 +38,17 @@ type Props = stateProps & IHomePageProps & dispatchProps;
 
 export class HomePage extends React.PureComponent<Props, undefined> {
 
-  handleLocaleSelectChange: React.ReactEventHandler<HTMLSelectElement> = (e) => {
-    this.props.changeLocale(e.currentTarget.value);
-  }
-
   handleThemeSelectChange: React.ReactEventHandler<HTMLSelectElement> = (e) => {
     this.props.changeTheme(e.currentTarget.value);
   }
 
   public render() {
-    const appLocalesItems = appLocales.map((locale) => {
-      return <option key={locale} value={locale}>{locale}</option>;
-    });
     const appThemesItems = Object.keys(appThemes).map((theme) => {
       return <option key={theme} value={theme}>{theme}</option>;
     });
     return (
       <div>
         <Helloworld />
-        <FormattedRelative value={new Date('2018 5 9 00:12:28')}/>
-        <select
-          name='Locale'
-          value={this.props.locale}
-          onChange={this.handleLocaleSelectChange}
-        >
-          {appLocalesItems}
-        </select>
         <select
           name='Theme'
           value={this.props.theme}

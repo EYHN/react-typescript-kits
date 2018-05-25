@@ -1,9 +1,8 @@
 import { fromJS } from 'immutable';
-import { $Call, $Values } from 'utility-types';
 import * as actions from './actions';
-import { getType } from 'typesafe-actions';
+import { getType, ActionType } from 'typesafe-actions';
 import { DEFAULT_THEMENAME } from '../App/constants';
-export type ThemeAction = $Call<$Values<typeof actions>>;
+export type ThemeAction = ActionType<typeof actions>;
 
 const initialState = fromJS({
   themeName: DEFAULT_THEMENAME

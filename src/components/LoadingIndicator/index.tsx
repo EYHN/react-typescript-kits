@@ -1,10 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
 const LoadingIndicator = () => (
   <div>
-    <FormattedMessage {...messages.loading} />
+    加载中
   </div>
 );
 

@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 
 import { HomePage, mapDispatchToProps } from '../';
 import Helloworld from '../../../components/helloworld/index';
-import { changeLocale } from '../../LanguageProvider/actions';
 import { changeTheme } from '../../ThemeProvider/actions';
 
 describe('<HomePage />', () => {
@@ -21,21 +20,6 @@ describe('<HomePage />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    describe('changeLocale', () => {
-      it('should be injected', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        expect(result.changeLocale).toBeDefined();
-      });
-
-      it('should dispatch changeLocale when called', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        const locale = 'en';
-        result.changeLocale(locale);
-        expect(dispatch).toHaveBeenCalledWith(changeLocale(locale));
-      });
-    });
 
     describe('changeTheme', () => {
       it('should be injected', () => {

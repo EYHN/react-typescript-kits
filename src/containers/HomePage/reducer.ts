@@ -23,7 +23,7 @@ export default function homeReducer(state = initialState, action: HomeAction) {
         .set('hitokoto', action.payload);
     case getType(actions.hitokotoLoadingError):
       return state
-        .set('error', action.error)
+        .set('error', true)
         .set('loading', false);
     default:
       return state;

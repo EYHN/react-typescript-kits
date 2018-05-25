@@ -1,9 +1,6 @@
 import {
   CHANGE_THEMENAME,
 } from './constants';
-import { createAction } from 'typesafe-actions';
+import { createStandardAction } from 'typesafe-actions';
 
-export const changeTheme = createAction(CHANGE_THEMENAME, (themeName: string) => ({
-  type: CHANGE_THEMENAME,
-  payload: themeName
-}));
+export const changeTheme = createStandardAction(CHANGE_THEMENAME)<string>();

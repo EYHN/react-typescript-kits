@@ -1,6 +1,5 @@
 import { createMemoryHistory } from 'history';
 import { fromJS } from 'immutable';
-import identity from 'lodash/identity';
 import configureStore from '../../store';
 
 import getInjectors, {
@@ -87,7 +86,7 @@ describe('reducer injectors', () => {
     it('should assign reducer if different implementation for hot reloading', () => {
       store.replaceReducer = jest.fn();
       injectReducer('test', reducer);
-      injectReducer('test', identity);
+      injectReducer('test', (a) => a);
 
       expect(store.replaceReducer).toHaveBeenCalledTimes(2);
     });

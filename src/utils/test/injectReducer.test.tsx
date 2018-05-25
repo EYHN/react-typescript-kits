@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import identity from 'lodash/identity';
 import { createMemoryHistory } from 'history';
 
 import configureStore from 'store';
@@ -11,7 +10,7 @@ import { Reducer } from 'redux';
 
 const Component: React.SFC = () => null;
 
-const reducer = identity;
+const reducer = (a: any) => (a);
 
 describe('injectReducer decorator', () => {
   let store: IStore;

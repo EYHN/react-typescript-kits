@@ -1,6 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import { css, withStyles, IThemeProps } from 'withStyles';
 import { IWithStyleProps } from 'Interfaces/react-with-style';
 
@@ -19,7 +17,7 @@ export default class Helloworld extends React.PureComponent<IWithStyleProps<type
   public render() {
     return (
       <div>
-        <h1 {...css(this.props.styles.title)}><FormattedMessage {...messages.startProjectHeader} /></h1>
+        <h1 {...css(this.props.styles.title)}>Hello World</h1>
       </div>
     );
   }

@@ -42,5 +42,3 @@ redux-immutable
 redux-saga
 
 reselect
-
-react-intl

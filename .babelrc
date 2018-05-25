@@ -4,7 +4,6 @@
     "react"
   ],
   "plugins": [
-    "lodash",
     [
       "transform-runtime",
       {

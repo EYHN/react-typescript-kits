@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import LanguageProvider from './containers/LanguageProvider';
 import configureStore from './store';
 // tslint:disable-next-line:no-import-side-effect
 import 'sanitize.css/sanitize.css';
@@ -28,13 +27,11 @@ const MOUNT_NODE = document.getElementById('app');
 const render = (Content: typeof App) => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider>
-        <ThemeProvider>
-          <ConnectedRouter history={history}>
-            <Content />
-          </ ConnectedRouter>
-        </ThemeProvider>
-      </LanguageProvider>
+      <ThemeProvider>
+        <ConnectedRouter history={history}>
+          <Content />
+        </ ConnectedRouter>
+      </ThemeProvider>
     </Provider>
     , MOUNT_NODE
   );
@@ -48,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 if (module.hot) {
-  module.hot.accept(['./i18n', './containers/App'], () => {
+  module.hot.accept(['./containers/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render(require('./containers/App').default);
   });
