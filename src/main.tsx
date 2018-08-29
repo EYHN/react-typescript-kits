@@ -8,7 +8,6 @@ import 'sanitize.css/sanitize.css';
 import FontFaceObserver from 'fontfaceobserver';
 import createHistory from 'history/createBrowserHistory';
 import App from './containers/App';
-import ThemeProvider from './containers/ThemeProvider/index';
 
 const openSansObserver = new FontFaceObserver('Noto Sans', {});
 
@@ -27,11 +26,9 @@ const MOUNT_NODE = document.getElementById('app');
 const render = (Content: typeof App) => {
   ReactDOM.render(
     <Provider store={store}>
-      <ThemeProvider>
-        <ConnectedRouter history={history}>
-          <Content />
-        </ ConnectedRouter>
-      </ThemeProvider>
+      <ConnectedRouter history={history}>
+        <Content />
+      </ ConnectedRouter>
     </Provider>
     , MOUNT_NODE
   );

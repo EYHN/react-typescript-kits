@@ -20,7 +20,7 @@
       "tsConfigFile": "tsconfig.json",
       "useBabelrc": true,
       "babelConfig": {
-        "plugins": ["dynamic-import-node"]
+        "plugins": ["@babel/plugin-syntax-dynamic-import"]
       }
     }
   }

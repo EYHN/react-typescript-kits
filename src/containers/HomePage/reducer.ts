@@ -7,7 +7,7 @@ export type HomeAction = $Call<$Values<typeof actions>>;
 const initialState = fromJS({
   loading: false,
   error: false,
-  hitokoto: undefined
+  hitokoto: null
 });
 
 export default function homeReducer(state = initialState, action: HomeAction) {
@@ -16,7 +16,7 @@ export default function homeReducer(state = initialState, action: HomeAction) {
       return state
         .set('loading', true)
         .set('error', false)
-        .set('hitokoto', undefined);
+        .set('hitokoto', null);
     case getType(actions.hitokotoLoaded):
       return state
         .set('loading', false)

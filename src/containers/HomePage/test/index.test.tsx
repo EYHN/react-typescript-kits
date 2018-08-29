@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { HomePage, mapDispatchToProps } from '../';
-import Helloworld from '../../../components/helloworld/index';
-import { changeTheme } from '../../ThemeProvider/actions';
+import Helloworld from 'components/helloworld/index';
+import { loadHitokoto } from 'containers/HomePage/actions';
 
 describe('<HomePage />', () => {
 
@@ -11,8 +11,7 @@ describe('<HomePage />', () => {
     const renderedComponent = shallow(
       <HomePage
         {...{
-          locale: 'en',
-          theme: 'light'
+          hitokoto: null
         } as any}
       />
     );
@@ -20,20 +19,18 @@ describe('<HomePage />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-
     describe('changeTheme', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        expect(result.changeTheme).toBeDefined();
+        expect(result.onGetHitokoto).toBeDefined();
       });
 
       it('should dispatch changeTheme when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
-        const locale = 'light';
-        result.changeTheme(locale);
-        expect(dispatch).toHaveBeenCalledWith(changeTheme(locale));
+        result.onGetHitokoto();
+        expect(dispatch).toHaveBeenCalledWith(loadHitokoto());
       });
     });
   });

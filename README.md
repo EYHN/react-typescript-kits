@@ -21,15 +21,9 @@
 
 webpack
 
-css-moudle
-
-jsx-styled
-
 react
 
 typescript
-
-sass|less
 
 redux
 

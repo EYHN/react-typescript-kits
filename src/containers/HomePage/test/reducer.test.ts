@@ -9,7 +9,7 @@ describe('homeReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
-      hitokoto: undefined
+      hitokoto: null
     });
   });
 
@@ -22,7 +22,7 @@ describe('homeReducer', () => {
     const expectedResult = state
       .set('loading', true)
       .set('error', false)
-      .set('hitokoto', undefined);
+      .set('hitokoto', null);
 
     expect(homeReducer(state, loadHitokoto())).toEqual(expectedResult);
   });
@@ -43,7 +43,7 @@ describe('homeReducer', () => {
     const expectedResult = state
       .set('error', true)
       .set('loading', false)
-      .set('hitokoto', undefined);
+      .set('hitokoto', null);
 
     expect(homeReducer(state, hitokotoLoadingError(fixture))).toEqual(expectedResult);
   });
