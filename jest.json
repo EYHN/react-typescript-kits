@@ -18,10 +18,7 @@
   "globals": {
     "ts-jest": {
       "tsConfigFile": "tsconfig.json",
-      "useBabelrc": true,
-      "babelConfig": {
-        "plugins": ["@babel/plugin-syntax-dynamic-import"]
-      }
+      "useBabelrc": true
     }
   }
 }
